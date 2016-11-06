@@ -4,7 +4,7 @@ one:
   firstName: MyString
   lastName: MyString
   alias: MyString
-  password: MyString
+  password_digest: MyString
   initAmount: 9.99
   amount: 9.99
   email: MyString
@@ -13,7 +13,7 @@ two:
   firstName: MyString
   lastName: MyString
   alias: MyString
-  password: MyString
+  password_digest: MyString
   initAmount: 9.99
   amount: 9.99
   email: MyString
