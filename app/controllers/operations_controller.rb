@@ -30,7 +30,8 @@ class OperationsController < ApplicationController
     @operation = Operation.new(operation_params.merge(sum: sum))
     respond_to do |format|
       if @operation.save
-        format.html { redirect_to @operation, notice: 'Operation was successfully created.' }
+        format.html { redirect_to controller: 'users'}
+        #format.html { redirect_to @operation, notice: 'Operation was successfully created.' }
         format.json { render :show, status: :created, location: @operation }
       else
         format.html { render :new }

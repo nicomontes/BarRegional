@@ -6,7 +6,6 @@ one:
   alias: MyString
   password: MyString
   initAmount: 9.99
-  amount: 9.99
   email: MyString
 
 two:
@@ -15,5 +14,4 @@ two:
   alias: MyString
   password: MyString
   initAmount: 9.99
-  amount: 9.99
   email: MyString

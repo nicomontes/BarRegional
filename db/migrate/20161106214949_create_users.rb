@@ -6,7 +6,6 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :alias
       t.string :password
       t.decimal :initAmount
-      t.decimal :amount
       t.string :email
 
       t.timestamps
