@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @operation.date %>
+</p>
+
+<p>
+  <strong>Sum:</strong>
+  <%= @operation.sum %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @operation.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_operation_path(@operation) %> |
+<%= link_to 'Back', operations_path %>

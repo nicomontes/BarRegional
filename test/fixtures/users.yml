@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  firstName: MyString
+  lastName: MyString
+  alias: MyString
+  password: MyString
+  initAmount: 9.99
+  amount: 9.99
+  email: MyString
+
+two:
+  firstName: MyString
+  lastName: MyString
+  alias: MyString
+  password: MyString
+  initAmount: 9.99
+  amount: 9.99
+  email: MyString
