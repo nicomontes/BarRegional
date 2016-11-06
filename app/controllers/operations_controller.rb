@@ -31,7 +31,6 @@ class OperationsController < ApplicationController
     respond_to do |format|
       if @operation.save
         format.html { redirect_to controller: 'users'}
-        #format.html { redirect_to @operation, notice: 'Operation was successfully created.' }
         format.json { render :show, status: :created, location: @operation }
       else
         format.html { render :new }

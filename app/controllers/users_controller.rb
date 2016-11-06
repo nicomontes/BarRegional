@@ -7,11 +7,8 @@ class UsersController < ApplicationController
     @users = User.all
     @users.each do |user|
       @Operations = Operation.where(user_id: user.id).find_each do |operation|
-        puts "---"
-        puts operation.sum
         user.amount = user.amount + operation.sum
       end
-      puts user.amount
     end
   end
 
@@ -31,8 +28,9 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  def create
-    @user = User.new(user_params)
+  def create    
+    amount = user_params[:initAmount].to_i
+    @user = User.new(user_params.merge(amount: amount))
 
     respond_to do |format|
       if @user.save
@@ -77,6 +75,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:firstName, :lastName, :alias, :password, :initAmount, :email)
+      params.require(:user).permit(:firstName, :lastName, :alias, :password, :initAmount, :amount, :email)
     end
 end
