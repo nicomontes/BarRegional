@@ -26,8 +26,10 @@ class OperationsController < ApplicationController
   # POST /operations
   # POST /operations.json
   def create
-    operation_params[:sum] = 0 - operation_params[:sum].to_i
-    @operation = Operation.new(operation_params)
+    sum = 0 - operation_params[:sum].to_i
+    puts "---"
+    puts sum
+    @operation = Operation.new(operation_params.merge(sum: sum))
     respond_to do |format|
       if @operation.save
         format.html { redirect_to @operation, notice: 'Operation was successfully created.' }
