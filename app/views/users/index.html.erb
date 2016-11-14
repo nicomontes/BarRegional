@@ -21,7 +21,6 @@
         <td><%= user.alias %></td>
         <td><%= user.amount %></td>
         <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Paye sa Bière', { :controller => "operations", :action => "new", :userid => user.id } %></td>
       </tr>
     <% end %>
