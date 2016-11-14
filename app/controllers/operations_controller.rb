@@ -16,6 +16,8 @@ class OperationsController < ApplicationController
   def new
     @operation = Operation.new
     @operation.user_id=params[:userid]
+    @drink = Drink.all
+    puts @drink_type
   end
 
   # GET /operations/1/edit

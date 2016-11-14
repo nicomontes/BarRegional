@@ -17,6 +17,11 @@
   </div>
 
   <div class="field">
+    <%= f.label "Type de Bières" %>
+    <%= options_from_collection_for_select(Drink.all, :id, :name) %>
+  </div>
+
+  <div class="field">
     <%= f.label "Nombre de Bières" %>
     <%= f.number_field :sum %>
   </div>

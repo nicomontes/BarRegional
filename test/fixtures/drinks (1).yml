@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  drink_type: MyString
+  type: 
   price: 9.99
 
 two:
   name: MyString
-  drink_type: MyString
+  type: 
   price: 9.99
