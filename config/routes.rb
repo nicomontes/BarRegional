@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :drinks
   resources :users
   root :to => redirect("/users")
   resources :operations
