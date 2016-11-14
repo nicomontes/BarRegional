@@ -14,10 +14,15 @@ class OperationsController < ApplicationController
 
   # GET /operations/new
   def new
+    @drink = Drink.all
     @operation = Operation.new
     @operation.user_id=params[:userid]
-    @drink = Drink.all
-    puts @drink_type
+  end
+
+  # GET /operations/add
+  def add
+    @operation = Operation.new
+    @operation.user_id=params[:userid]
   end
 
   # GET /operations/1/edit
@@ -28,16 +33,26 @@ class OperationsController < ApplicationController
   # POST /operations
   # POST /operations.json
   def create
-    sum = 0 - operation_params[:sum].to_i
-    @operation = Operation.new(operation_params.merge(sum: sum))
-    respond_to do |format|
-      if @operation.save
-        format.html { redirect_to controller: 'users'}
-        format.json { render :show, status: :created, location: @operation }
+    if User.find(operation_params[:user_id]).password_digest == params[:password]
+      if params[:post]
+        drink_id = params[:post][:drink]
+        drink_price = Drink.find(drink_id).price.to_f
+        sum = 0 - operation_params[:sum].to_f * drink_price
       else
-        format.html { render :new }
-        format.json { render json: @operation.errors, status: :unprocessable_entity }
+        sum = operation_params[:sum].to_f
       end
+      @operation = Operation.new(operation_params.merge(sum: sum))
+      respond_to do |format|
+        if @operation.save
+          format.html { redirect_to controller: 'users'}
+          format.json { render :show, status: :created, location: @operation }
+        else
+          format.html { render :new }
+          format.json { render json: @operation.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      redirect_to :back
     end
   end
 

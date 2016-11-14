@@ -1,10 +1,12 @@
-<%= form_for(operation) do |f| %>
-  <% if operation.errors.any? %>
+<h1>Renflouage</h1>
+
+<%= form_for(@operation) do |f| %>
+  <% if @operation.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(operation.errors.count, "error") %> prohibited this operation from being saved:</h2>
+      <h2><%= pluralize(@operation.errors.count, "error") %> prohibited this operation from being saved:</h2>
 
       <ul>
-      <% operation.errors.full_messages.each do |message| %>
+      <% @operation.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -17,12 +19,7 @@
   </div>
 
   <div class="field">
-    <%= f.label "Type de Bières" %>
-    <%= select("post", "drink", Drink.all.collect {|p| [ p.name, p.id ] }, { include_blank: false }) %>
-  </div>
-
-  <div class="field">
-    <%= f.label "Nombre de Bières" %>
+    <%= f.label "Total" %>
     <%= f.number_field :sum %>
   </div>
 
@@ -40,3 +37,6 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<%= link_to 'Back', users_path %>
