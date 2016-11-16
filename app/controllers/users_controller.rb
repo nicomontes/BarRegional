@@ -38,6 +38,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        UserNotifierMailer.send_signup_email(@user).deliver
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -50,7 +51,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    if params[:admin_password] == "BarCVVR"
+    if params[:admin_password] == ENV["ADMIN_PASSWORD"]
       respond_to do |format|
         if @user.update(user_params)
           format.html { redirect_to @user, notice: 'User was successfully updated.' }
