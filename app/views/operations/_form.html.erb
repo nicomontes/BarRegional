@@ -13,30 +13,48 @@
 
   <div class="field" hidden>
     <%= f.label :date %>
-    <%= f.datetime_select :date %>
+    <%= f.datetime_select :date, :include_seconds => true%>
   </div>
+  
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+    <input class="mdl-textfield__input" id="post_drink" name="post[drink]" value="" type="text" readonly tabIndex="-1" data-val=""/>
+      <label class="mdl-textfield__label" for="post_drink">Type de Bière</label>
+      <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="post_drink">        
+        <% Drink.all.collect.each do |drink| %>
+          <li class="mdl-menu__item" data-val ="<%= drink.id %>"><%= drink.name %></li>
+        <% end %>
+      </ul>
+  </div>
+  
+  <br/>
+  
 
-  <div class="field">
-    <%= f.label "Type de Bières" %>
-    <%= select("post", "drink", Drink.all.collect {|p| [ p.name, p.id ] }, { include_blank: false }) %>
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :sum, class: 'mdl-textfield__label', value: 'Nombre de Bières' %>
+    <%= f.number_field :sum, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.1' %>
+    <span class="mdl-textfield__error">Ce n'est pas un nombre valide</span>
   </div>
-
-  <div class="field">
-    <%= f.label "Nombre de Bières" %>
-    <%= f.number_field :sum %>
-  </div>
+  
+  <br/>
 
   <div class="field" hidden>
     <%= f.label :user_id %>
     <%= f.number_field :user_id %>
   </div>
   
-  <div class="field">
-    <%= f.label :password %>
-    <%= password_field_tag(:password) %>
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :password, class: 'mdl-textfield__label', value: 'Password' %>
+    <%= password_field_tag :password, nil, class: 'mdl-textfield__input' %>
   </div>
+  
+  <br/>
+  <br/>  
+  <br/>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= button_tag 'Valider', class: 'mdl-button mdl-js-button mdl-button--raised' %>
   </div>
 <% end %>
+
+<script defer src="https://cdn.rawgit.com/CreativeIT/getmdl-select/master/getmdl-select.min.js"></script>
+<link rel="stylesheet" href="https://cdn.rawgit.com/CreativeIT/getmdl-select/master/getmdl-select.min.css">

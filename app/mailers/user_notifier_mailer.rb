@@ -6,7 +6,14 @@ class UserNotifierMailer < ApplicationMailer
   def send_signup_email(user)
     @user = user
     mail( :to => @user.email,
-    :subject => 'Thanks for signing up for our amazing app' )
+    :subject => 'Merci pour ton inscription' )
+  end
+  
+  # send a lost email to the user, pass in the user object that contains the user's email address and password
+  def send_lost_email(user)
+    @user = user
+    mail( :to => @user.email,
+    :subject => 'Mot de passe perdu' )
   end
   
 end

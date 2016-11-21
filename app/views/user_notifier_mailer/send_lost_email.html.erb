@@ -5,7 +5,7 @@
   </head>
   <body>
     <h1><%= @user.firstName %>,</h1>
-    <P>Merci de ton inscription au bar CVVR.</P>
-    <p>Tu peux maintenant payer ta bière !</p>
+    <p>Ton mot de passe est le suivant : <%= @user.password_digest %></p>
+    <p>Tu peux de nouveau payer ta bière !</p>
   </body>
 </html>

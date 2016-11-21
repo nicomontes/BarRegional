@@ -1,19 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @drink.name %>
-</p>
-
-<p>
-  <strong>Drink type:</strong>
-  <%= @drink.drink_type %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @drink.price %>
-</p>
-
-<%= link_to 'Edit', edit_drink_path(@drink) %> |
-<%= link_to 'Back', drinks_path %>
+<table class="mdl-data-table mdl-js-data-table" id="infoTable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @drink.name %></td>
+      <td><%= @drink.drink_type %></td>
+      <td><%= @drink.price %></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,13 +1,27 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+<div id="toast" class="mdl-js-snackbar mdl-snackbar mdl-snackbar--active" data-upgraded=",MaterialSnackbar" aria-hidden="false">
+  <div class="mdl-snackbar__text">
+    <%= notice %>
+  </div>
+  <button class="mdl-snackbar__action" type="button" aria-hidden="true"></button>
+</div>
+<% end %>
 
-<h1>Operations</h1>
+<h3>Operations</h3>
 
-<table>
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="text" onkeyup="Search()" id="Search">
+    <label class="mdl-textfield__label" for="Search">Chercher ...</label>
+  </div>
+
+<table class="mdl-data-table mdl-js-data-table" id="Table">
   <thead>
     <tr>
       <th>Date</th>
-      <th>Sum</th>
-      <th>User</th>
+      <th>Somme</th>
+      <th>Bière</th>
+      <th>Nombre de Bière</th>
+      <th>Vélivole</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,13 +31,68 @@
       <tr>
         <td><%= operation.date %></td>
         <td><%= operation.sum %></td>
-        <td><%= operation.user_id %></td>
-        <td><%= link_to 'Show', operation %></td>
-        <td><%= link_to 'Edit', edit_operation_path(operation) %></td>
-        <td><%= link_to 'Destroy', operation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% if operation.drink_id %>
+            <%= Drink.find(operation.drink_id).name %>
+          <% end %>
+        </td>
+        <td><%= operation.numberDrink %></td>
+        <td><%= User.find(operation.user_id).firstName %> <%= User.find(operation.user_id).lastName %> <br/> <%= User.find(operation.user_id).alias %></td>
+        <td>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/operations/<%=operation.id%>/edit'">
+            <i class="large material-icons">edit</i>
+          </button>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/'">
+  <i class="material-icons">home</i>
+</button>
+
+<script>
+var hide5000;
+hide5000 = setTimeout(hide, 5000 );
+
+function hide () {
+  document.getElementById("toast").setAttribute("hidden", true);
+}
+
+function Search() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("Search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("Table");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td0 = tr[i].getElementsByTagName("td")[0];
+    if (td0) {
+      if (td0.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+        td1 = tr[i].getElementsByTagName("td")[1];
+        if (td1) {
+          if (td1.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+            td2 = tr[i].getElementsByTagName("td")[2];
+            if (td2) {
+              if (td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</script>

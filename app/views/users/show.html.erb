@@ -1,31 +1,56 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Firstname:</strong>
-  <%= @user.firstName %>
-</p>
+<h3><%= @user.firstName %> <%= @user.lastName %></h3>
 
-<p>
-  <strong>Lastname:</strong>
-  <%= @user.lastName %>
-</p>
+<br/>
+<br/>
+<br/>
 
-<p>
-  <strong>Alias:</strong>
-  <%= @user.alias %>
-</p>
+<table class="mdl-data-table mdl-js-data-table" id="infoTable">
+  <thead>
+    <tr>
+      <th>Surnom</th>
+      <th>Compte</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @user.alias %></td>
+      <td><%= @user.amount %></td>
+      <td><%= @user.email %></td>
+    </tr>
+  </tbody>
+</table>
 
-<p>
-  <strong>Amount:</strong>
-  <%= @user.amount %>
-</p>
+<br/>
+<br/>
+<br/>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
 
-<table>
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="window.location.href='/operations/add?userid=<%=@user.id%>'">
+Renflouer
+</button>
+
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="window.location.href='/users/<%=@user.id%>/edit'">
+Edition
+</button>
+
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="window.location.href='/users/'">
+Liste
+</button>
+
+<br/>
+<br/>
+<br/>
+
+<svg width="200px" id="visualisation"></svg>
+
+<br/>
+<br/>
+<br/>
+
+<table class="mdl-data-table mdl-js-data-table" id="opTable">
   <thead>
     <tr>
       <th>Date</th>
@@ -34,7 +59,7 @@
   </thead>
 
   <tbody>
-    <% @operations.find_each do |operation| %>
+    <% @operations.each do |operation| %>
       <tr>
         <td><%= operation.date %></td>
         <td><%= operation.sum %></td>
@@ -43,7 +68,157 @@
   </tbody>
 </table>
 
-<%= link_to 'Renflouer', { :controller => "operations", :action => "add", :userid => @user.id } %>
+<script>
+compte = document.getElementById("infoTable").getElementsByTagName("tr")[1].getElementsByTagName("td")[1].innerHTML
+data = new Array();
+table = document.getElementById("opTable");
+tr = table.getElementsByTagName("tr");
+for (i = tr.length -1; tr[i]; i--) {
+  td = tr[i].getElementsByTagName("td")[0];
+  td1 = tr[i].getElementsByTagName("td")[1];
+  if (td) {
+    date = new Date(td.innerHTML);
+    dataTemp = new Object();
+    dataTemp.date = date;
+    if (i == tr.length -1) {
+        dataTemp.close = parseFloat(<%= @user.initAmount %>) + parseFloat(td1.innerHTML);
+    } else {
+      dataTemp.close = data[data.length-1].close + parseFloat(td1.innerHTML);
+    }
+    data.push(dataTemp);
+    td.innerHTML = date.toLocaleString()
+  }
+}
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+var margin = {top: 20, right: 50, bottom: 30, left: 50},
+  width = $(window).width() - margin.left - margin.right,
+  height = 250 - margin.top - margin.bottom;
+
+var parseDate = d3.time.format("%d-%b-%y").parse,
+  bisectDate = d3.bisector(function(d) { return d.date; }).left,
+  formatValue = d3.format(",.2f"),
+  formatCurrency = function (d){return formatValue(d);};
+  //formatCurrency = function(d) { return formatValue(d); };
+
+var x = d3.time.scale()
+  .range([0, width]);
+
+var y = d3.scale.linear()
+  .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+  .scale(x)
+  .orient("bottom");
+
+var yAxis = d3.svg.axis()
+  .scale(y)
+  .orient("left");
+
+var line = d3.svg.line()
+  .interpolate("step-after")
+  .x(function(d) { return x(d.date); })
+  .y(function(d) { return y(d.close); });
+
+var svg = d3.select("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+data.sort(function(a, b) {
+  return a.date - b.date;
+});
+
+x.domain([data[0].date, data[data.length - 1].date]);
+y.domain(d3.extent(data, function(d) { return d.close; }));
+
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+  .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("text");
+
+svg.append("path")
+    .datum(data)
+    .attr("class", "line")
+    .attr("d", line);
+
+    
+var focus = svg.append("g")
+  .attr("class", "focus")
+  .style("display", "none");
+
+focus.append("circle")
+  .attr("r", 4.5);
+
+focus.append("text")
+  .attr("x", 9)
+  .attr("dy", ".35em");
+
+svg.append("rect")
+  .attr("class", "overlay")
+  .attr("width", width)
+  .attr("height", height)
+  .on("mouseover", function() { focus.style("display", null); })
+  .on("mouseout", function() { focus.style("display", "none"); })
+  .on("mousemove", mousemove);
+
+function mousemove() {
+  var x0 = x.invert(d3.mouse(this)[0]),
+    i = bisectDate(data, x0, 1),
+    d0 = data[i - 1],
+    d1 = data[i],
+    d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+  focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
+  focus.select("text").text(formatCurrency(d.close));
+}
+
+
+</script>
+
+<style>
+  .redButton{
+    color: rgb(255, 69, 0)
+  }
+  .greenButton{
+    color: rgb(107, 142, 35)
+  }
+  body {
+    font: 10px sans-serif;
+  }
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  .x.axis path {
+    display: none;
+  }
+  .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+  .overlay {
+    fill: none;
+    pointer-events: all;
+  }
+  .focus circle {
+    fill: none;
+    stroke: steelblue;
+  }
+  #container {
+    position: absolute;
+    top: 40%;
+  }
+</style>

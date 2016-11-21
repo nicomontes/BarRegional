@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    @kegs = Keg.where(endDate: nil)
     @users = User.all
     @users.each do |user|
       Operation.where(user_id: user.id).find_each do |operation|
@@ -15,9 +16,21 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @operations = Operation.where(user_id: @user.id)
+    @operations = Operation.where(user_id: @user.id).order("date DESC")
+    @operations.each do |tests|
+      puts tests.date
+    end
     Operation.where(user_id: @user.id).find_each do |operation|
       @user.amount = @user.amount + operation.sum
+    end
+  end
+  
+  # GET /users/1/lost
+  def lost
+    user = User.find(params["id"])
+    UserNotifierMailer.send_lost_email(user).deliver
+    respond_to do |format|
+      format.html { redirect_to User, notice: "Mot de passe de l'utilisateur " + @user.firstName + " " + @user.lastName + " à été envoyé sur son adresse email." }
     end
   end
 
@@ -39,7 +52,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         UserNotifierMailer.send_signup_email(@user).deliver
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to User, notice: "L'utilisateur " + @user.firstName + " " + @user.lastName + " à été ajouté." }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -52,27 +65,42 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     if params[:admin_password] == ENV["ADMIN_PASSWORD"]
-      respond_to do |format|
-        if @user.update(user_params)
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-          format.json { render :show, status: :ok, location: @user }
-        else
-          format.html { render :edit }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+      if params[:usr][:delete] == "yes"
+        @user.destroy
+        Operation.where(user_id: @user.id).find_each do |operation|
+          operation.destroy
+        end
+        respond_to do |format|
+          format.html { redirect_to User, notice: "L'utilisateur " + @user.firstName + " " + @user.lastName + " à été supprimé" }
+        end
+      else
+        respond_to do |format|
+          if @user.update(user_params)
+            format.html { redirect_to User, notice: "L'utilisateur " + @user.firstName + " " + @user.lastName + " à été mis à jour." }
+            format.json { render :show, status: :ok, location: @user }
+          else
+            format.html { render :edit }
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+          end
         end
       end
     else
-      redirect_to :back
+      redirect_back fallback_location:  ""
     end
   end
 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    if params[:admin_password] == ENV["ADMIN_PASSWORD"]
+      @user.destroy
+      Operation.where(user_id: user.id).find_each do |operation|
+        operation.destroy
+      end
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 

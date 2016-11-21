@@ -25,39 +25,55 @@ class DrinksController < ApplicationController
   # POST /drinks.json
   def create
     @drink = Drink.new(drink_params)
-
-    respond_to do |format|
-      if @drink.save
-        format.html { redirect_to @drink, notice: 'Drink was successfully created.' }
-        format.json { render :show, status: :created, location: @drink }
-      else
-        format.html { render :new }
-        format.json { render json: @drink.errors, status: :unprocessable_entity }
+    if params[:admin_password] == ENV["ADMIN_PASSWORD"]
+      respond_to do |format|
+        if @drink.save
+          format.html { redirect_to Drink, notice: 'La boisson a bien été créée' }
+          format.json { render :show, status: :created, location: @drink }
+        else
+          format.html { render :new }
+          format.json { render json: @drink.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_back fallback_location:  ""
     end
   end
 
   # PATCH/PUT /drinks/1
   # PATCH/PUT /drinks/1.json
   def update
-    respond_to do |format|
-      if @drink.update(drink_params)
-        format.html { redirect_to @drink, notice: 'Drink was successfully updated.' }
-        format.json { render :show, status: :ok, location: @drink }
+    if params[:admin_password] == ENV["ADMIN_PASSWORD"]
+      if params[:drk][:delete] == "yes"
+        @drink.destroy
+        respond_to do |format|
+          format.html { redirect_to Drink, notice: "La boisson a été supprimé." }
+        end
       else
-        format.html { render :edit }
-        format.json { render json: @drink.errors, status: :unprocessable_entity }
+        respond_to do |format|
+          if @drink.update(drink_params)
+            format.html { redirect_to Drink, notice: 'La boisson a bien été modifiée' }
+            format.json { render :show, status: :ok, location: @drink }
+          else
+            format.html { render :edit }
+            format.json { render json: @drink.errors, status: :unprocessable_entity }
+          end
+        end
       end
+    else
+      redirect_back fallback_location:  ""
     end
   end
 
   # DELETE /drinks/1
   # DELETE /drinks/1.json
   def destroy
-    @drink.destroy
-    respond_to do |format|
-      format.html { redirect_to drinks_url, notice: 'Drink was successfully destroyed.' }
-      format.json { head :no_content }
+    if params[:admin_password] == ENV["ADMIN_PASSWORD"]
+      @drink.destroy
+      respond_to do |format|
+        format.html { redirect_to Drink, notice: 'La boisson a bien été supprimée' }
+        format.json { head :no_content }
+      end
     end
   end
 

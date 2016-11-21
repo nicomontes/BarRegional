@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  drink_id: 9.99
+  startDate: 2016-11-18
+  endDate: 2016-11-18
+  capacity: 9.99
+  price: 9.99
+
+two:
+  name: MyString
+  drink_id: 9.99
+  startDate: 2016-11-18
+  endDate: 2016-11-18
+  capacity: 9.99
+  price: 9.99

@@ -7,26 +7,35 @@
 </div>
 <% end %>
 
-<h3>Breuvages</h3>
+<h3>Fût</h3>
 
 <table class="mdl-data-table mdl-js-data-table" id="Table">
   <thead>
     <tr>
-      <th>Nom</th>
       <th>Type</th>
+      <th>Startdate</th>
+      <th>Enddate</th>
+      <th>Capacité</th>
       <th>Prix</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @drinks.each do |drink| %>
+    <% @kegs.each do |keg| %>
       <tr>
-        <td><%= drink.name %></td>
-        <td><%= drink.drink_type %></td>
-        <td><%= drink.price %></td>
+        <td><%= Drink.find(keg.drink_id).name %> </td>
+        <td><%= keg.startDate %></td>
+        <td><%= keg.endDate %></td>
+        <td><%= keg.capacity %> l</td>
+        <td><%= keg.price %> €</td>
         <td>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/drinks/<%=drink.id%>/edit'">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/kegs/<%=keg.id%>'">
+            <i class="large material-icons">zoom_in</i>
+          </button>
+        </td>
+        <td>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/kegs/<%=keg.id%>/edit'">
             <i class="large material-icons">edit</i>
           </button>
         </td>
@@ -35,9 +44,9 @@
   </tbody>
 </table>
 
-<br>
+<br/>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/drinks/new'">
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/kegs/new'">
   <i class="material-icons">add</i>
 </button>
 

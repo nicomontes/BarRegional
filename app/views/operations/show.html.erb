@@ -1,19 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Date:</strong>
-  <%= @operation.date %>
-</p>
-
-<p>
-  <strong>Sum:</strong>
-  <%= @operation.sum %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @operation.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_operation_path(@operation) %> |
-<%= link_to 'Back', operations_path %>
+<table class="mdl-data-table mdl-js-data-table" id="infoTable">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Somme</th>
+      <th>User</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @operation.date %></td>
+      <td><%= @operation.sum %></td>
+      <td><%= @operation.user_id %></td>
+    </tr>
+  </tbody>
+</table>

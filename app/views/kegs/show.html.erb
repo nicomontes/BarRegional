@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<table class="mdl-data-table mdl-js-data-table" id="Table">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Type</th>
+      <th>Startdate</th>
+      <th>Enddate</th>
+      <th>Capacité</th>
+      <th>Prix</th>
+      <th>Nombre de bières payées</th>
+      <th>Rentabilité</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= @keg.name %></td>
+        <td><%= Drink.find(@keg.drink_id).name %></td>
+        <td><%= @keg.startDate %></td>
+        <td><%= @keg.endDate %></td>
+        <td><%= @keg.capacity %> l</td>
+        <td><%= @keg.price %> €</td>
+        <td><%= @opNum %></td>
+        <td><%= @profit %></td>
+      </tr>
+  </tbody>
+</table>

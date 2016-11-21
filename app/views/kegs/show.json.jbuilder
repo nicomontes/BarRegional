@@ -1,0 +1,1 @@
+json.partial! "kegs/keg", keg: @keg

@@ -1,4 +1,4 @@
-<h1>Editing User</h1>
+<h3>Edition de <%=@user.firstName%> <%=@user.lastName%></h3>
 
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
@@ -13,42 +13,61 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :firstName %>
-    <%= f.text_field :firstName %>
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :firstName, class: 'mdl-textfield__label', value: 'Prénom'%>
+    <%= f.text_field :firstName, class: 'mdl-textfield__input' %>
   </div>
 
-  <div class="field">
-    <%= f.label :lastName %>
-    <%= f.text_field :lastName %>
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :lastName, class: 'mdl-textfield__label', value: 'Nom' %>
+    <%= f.text_field :lastName, class: 'mdl-textfield__input' %>
   </div>
 
-  <div class="field">
-    <%= f.label :alias %>
-    <%= f.text_field :alias %>
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :alias,  class: 'mdl-textfield__label', value: 'Surnom' %>
+    <%= f.text_field :alias, class: 'mdl-textfield__input' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_digest, 'Password' %>
-    <%= f.password_field :password_digest %>
-  </div>
+  <br/>
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email %>
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :password_digest, class: 'mdl-textfield__label', value: 'Password' %>
+    <%= f.password_field :password_digest, class: 'mdl-textfield__input' %>
+  </div>
+    
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :email, class: 'mdl-textfield__label', value: 'email' %>
+    <%= f.email_field :email, class: 'mdl-textfield__input' %>
   </div>
   
-  <div class="field">
-    <%= f.label :password, 'Admin Password' %>
-    <%= password_field_tag(:admin_password) %>
+  <br/>
+  
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :password, class: 'mdl-textfield__label', value: 'Mot de passe Admin' %>
+    <%= password_field_tag :admin_password, nil, class: 'mdl-textfield__input' %>
   </div>
+  
+  <br/>
+  
+  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="usr_delete">
+    <%= check_box("usr", "delete", { class: "mdl-checkbox__input" }, "yes", "no") %>
+    <span class="mdl-checkbox__label">Supprimer <%=@user.firstName%> <%=@user.lastName%></span>
+  </label>
+  
+  <br/>
+  <br/>
+  <br/>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= button_tag 'Valider', class: 'mdl-button mdl-js-button mdl-button--raised' %>
   </div>
 <% end %>
 
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
-<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="window.location.href='/users/<%=@user.id%>'">
+Voir
+</button>
+
+<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="window.location.href='/users/<%=@user.id%>/lost'">
+Mot de passe perdu
+</button>

@@ -1,14 +1,26 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+<div id="toast" class="mdl-js-snackbar mdl-snackbar mdl-snackbar--active" data-upgraded=",MaterialSnackbar" aria-hidden="false">
+  <div class="mdl-snackbar__text">
+    <%= notice %>
+  </div>
+  <button class="mdl-snackbar__action" type="button" aria-hidden="true"></button>
+</div>
+<% end %>
 
-<h1>Vélivole</h1>
+<h1>Bar Vélivole</h1>
 
-<table>
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+  <input class="mdl-textfield__input" type="text" onkeyup="Search()" id="Search">
+  <label class="mdl-textfield__label" for="Search">Chercher ...</label>
+</div>
+
+<table class="mdl-data-table mdl-js-data-table" id="Table">
   <thead>
     <tr>
       <th>Prénom</th>
       <th>Nom</th>
       <th>Surnom</th>
-      <th>Amount</th>
+      <th>Compte</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,8 +32,21 @@
         <td><%= user.lastName %></td>
         <td><%= user.alias %></td>
         <td><%= user.amount %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Paye sa Bière', { :controller => "operations", :action => "new", :userid => user.id } %></td>
+        <td>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/users/<%=user.id%>'">
+            <i class="large material-icons">zoom_in</i>
+          </button>
+        </td>
+        <td>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/operations/new?userid=<%=user.id%>'">
+            <%= image_tag "beer_glass.svg", height: "30", width: "30" %>
+          </button>
+        </td>
+        <td>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/operations/add?userid=<%=user.id%>'">
+            <i class="large material-icons">euro_symbol</i>
+          </button>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -29,4 +54,90 @@
 
 <br>
 
-<%= link_to 'Ajouter un Vélivole', new_user_path %>
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/users/new'">
+  <i class="material-icons">add</i>
+</button>
+
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/operations'">
+  <i class="material-icons">cached</i>
+</button>
+
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/drinks'">
+  <%= image_tag "beer_glass.svg", height: "30", width: "30" %>
+  <i class="material-icons"     style="margin-left:10px; margin-top:10px;">add</i>
+</button>
+
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/kegs'">
+  <%= image_tag "beer_keg.svg", height: "30", width: "30" %>
+  <i class="material-icons" style="margin-left:10px; margin-top:10px;">add</i>
+</button>
+
+<br/>
+<br/>
+<br/>
+
+<% @kegs.each do |keg| 
+  opNum = 0
+  operations = Operation.where("drink_id = ?", keg.drink_id).where("date > ?", keg.startDate)
+  operations.each do |op|
+    opNum = opNum + op.numberDrink
+  end
+  percent = 100-(100/(keg.capacity/0.3)*opNum);
+%>
+
+<span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
+    <%= image_tag "beer_keg.svg", style: "height: 25px !important; width: 25px !important", class:  "mdl-chip__contact"%>
+    <span class="mdl-chip__text"><%= keg.name %> <%= Drink.find(keg.drink_id).name %> : <%= opNum.to_i %>
+    </span>
+    <a href="/kegs/<%= keg.id %>/renew/" class="mdl-chip__action"><i class="material-icons">cached</i></a>
+    <div id="p1" style="width: 100%" class="mdl-progress mdl-js-progress" value="<%= opNum %>">
+      <div class="progressbar bar bar1" style="width: <%= percent %>%;"></div>
+      <div class="bufferbar bar bar2" style="width: 100%;"></div>
+      <div class="auxbar bar bar3" style="width: 0%;"></div>
+    </div>
+</span>
+
+<% end %>
+
+<script>
+var hide5000;
+hide5000 = setTimeout(hide, 5000 );
+
+function hide () {
+  document.getElementById("toast").setAttribute("hidden", true);
+}
+
+function Search() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("Search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("Table");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td0 = tr[i].getElementsByTagName("td")[0];
+    if (td0) {
+      if (td0.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+        td1 = tr[i].getElementsByTagName("td")[1];
+        if (td1) {
+          if (td1.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+            td2 = tr[i].getElementsByTagName("td")[2];
+            if (td2) {
+              if (td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</script>

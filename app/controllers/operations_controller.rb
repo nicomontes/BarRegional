@@ -35,16 +35,17 @@ class OperationsController < ApplicationController
   def create
     if User.find(operation_params[:user_id]).password_digest == params[:password]
       if params[:post]
-        drink_id = params[:post][:drink]
+        drink_name = params[:post][:drink]
+        drink_id = Drink.where(name: drink_name)[0].id
         drink_price = Drink.find(drink_id).price.to_f
-        sum = 0 - operation_params[:sum].to_f * drink_price
+        sum = 0 - operation_params[:numberDrink].to_f * drink_price
       else
         sum = operation_params[:sum].to_f
       end
-      @operation = Operation.new(operation_params.merge(sum: sum))
+      @operation = Operation.new(operation_params.merge(sum: sum, drink_id: drink_id))
       respond_to do |format|
         if @operation.save
-          format.html { redirect_to controller: 'users'}
+          format.html { redirect_to controller: 'users', notice: "La bière a bien été payé !"}
           format.json { render :show, status: :created, location: @operation }
         else
           format.html { render :new }
@@ -52,31 +53,44 @@ class OperationsController < ApplicationController
         end
       end
     else
-      redirect_to :back
+      redirect_back fallback_location:  ""
     end
   end
 
   # PATCH/PUT /operations/1
   # PATCH/PUT /operations/1.json
   def update
-    respond_to do |format|
-      if @operation.update(operation_params)
-        format.html { redirect_to @operation, notice: 'Operation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @operation }
+    if User.find(operation_params[:user_id]).password_digest == params[:password]
+      if params[:op][:delete] == "yes"
+        @operation.destroy
+        respond_to do |format|
+          format.html { redirect_to Operation, notice: "L'opération a bien été supprimée." }
+        end
       else
-        format.html { render :edit }
-        format.json { render json: @operation.errors, status: :unprocessable_entity }
+        respond_to do |format|
+          if @operation.update(operation_params)
+            format.html { redirect_to Operation, notice: "L'opération a bien été mise à jour." }
+            format.json { render :show, status: :ok, location: @operation }
+          else
+            format.html { render :edit }
+            format.json { render json: @operation.errors, status: :unprocessable_entity }
+          end
+        end
       end
+    else
+      redirect_back fallback_location:  ""
     end
   end
 
   # DELETE /operations/1
   # DELETE /operations/1.json
   def destroy
-    @operation.destroy
-    respond_to do |format|
-      format.html { redirect_to operations_url, notice: 'Operation was successfully destroyed.' }
-      format.json { head :no_content }
+    if params[:admin_password] == ENV["ADMIN_PASSWORD"]
+      @operation.destroy
+      respond_to do |format|
+        format.html { redirect_to Operation, notice: "L'opération a bien été supprimée." }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -88,6 +102,6 @@ class OperationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def operation_params
-      params.require(:operation).permit(:date, :sum, :user_id)
+      params.require(:operation).permit(:date, :sum, :user_id, :numberDrink)
     end
 end

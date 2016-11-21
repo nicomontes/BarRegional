@@ -1,6 +1,67 @@
-<h1>Editing Operation</h1>
+<h3>Modification de l'opération</h3>
 
-<%= render 'form', operation: @operation %>
+<%= form_for(@operation) do |f| %>
+  <% if @operation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@operation.errors.count, "error") %> prohibited this operation from being saved:</h2>
 
-<%= link_to 'Show', @operation %> |
-<%= link_to 'Back', operations_path %>
+      <ul>
+      <% o@peration.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" hidden>
+    <%= f.label :date %>
+    <%= f.datetime_select :date, :include_seconds => true%>
+  </div>
+  
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :sum, class: 'mdl-textfield__label', value: 'Somme' %>
+    <%= f.number_field :sum, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
+    <span class="mdl-textfield__error">Ce n'est pas un nombre valide</span>
+  </div>
+  
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :numberDrink, class: 'mdl-textfield__label', value: 'Nombre de bières' %>
+    <%= f.number_field :numberDrink, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
+    <span class="mdl-textfield__error">Ce n'est pas un nombre valide</span>
+  </div>
+  
+  <br/>
+
+  <div class="field" hidden>
+    <%= f.label :user_id %>
+    <%= f.number_field :user_id %>
+  </div>
+  
+  <br/>
+  
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :password, class: 'mdl-textfield__label', value: 'Mot de passe' %>
+    <%= password_field_tag :password, nil, class: 'mdl-textfield__input' %>
+  </div>
+  
+  <br/>
+  
+  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="op_delete">
+    <%= check_box("op", "delete", { class: "mdl-checkbox__input" }, "yes", "no") %>
+    <span class="mdl-checkbox__label">Supprimer l'opération</span>
+  </label>
+  
+  <br/>
+  
+  <br/>
+  <br/>  
+  <br/>
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= button_tag 'Valider', class: 'mdl-button mdl-js-button mdl-button--raised' %>
+  </div>
+<% end %>
+
+<script defer src="https://cdn.rawgit.com/CreativeIT/getmdl-select/master/getmdl-select.min.js"></script>
+<link rel="stylesheet" href="https://cdn.rawgit.com/CreativeIT/getmdl-select/master/getmdl-select.min.css">
