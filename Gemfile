@@ -4,9 +4,15 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
 # Use sqlite3 as the database for Active Record
+<<<<<<< HEAD
 gem 'sqlite3'
 gem 'pg'
 gem 'taps'
+=======
+#gem 'sqlite3'
+# Use PostgreSQL
+gem 'pg'
+>>>>>>> 2a32776e23efba4d2fbaea887c50cb13994e004e
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
