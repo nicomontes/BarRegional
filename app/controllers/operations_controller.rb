@@ -33,34 +33,29 @@ class OperationsController < ApplicationController
   # POST /operations
   # POST /operations.json
   def create
-    if User.find(operation_params[:user_id]).password_digest == params[:password]
-      if params[:post]
-        drink_name = params[:post][:drink]
-        drink_id = Drink.where(name: drink_name)[0].id
-        drink_price = Drink.find(drink_id).price.to_f
-        sum = 0 - operation_params[:numberDrink].to_f * drink_price
-      else
-        sum = operation_params[:sum].to_f
-      end
-      @operation = Operation.new(operation_params.merge(sum: sum, drink_id: drink_id))
-      respond_to do |format|
-        if @operation.save
-          format.html { redirect_to controller: 'users', notice: "La bière a bien été payé !"}
-          format.json { render :show, status: :created, location: @operation }
-        else
-          format.html { render :new }
-          format.json { render json: @operation.errors, status: :unprocessable_entity }
-        end
-      end
+    if params[:post]
+      drink_name = params[:post][:drink]
+      drink_id = Drink.where(name: drink_name)[0].id
+      drink_price = Drink.find(drink_id).price.to_f
+      sum = 0 - operation_params[:numberDrink].to_f * drink_price
     else
-      redirect_back fallback_location:  ""
+      sum = operation_params[:sum].to_f
+    end
+    @operation = Operation.new(operation_params.merge(sum: sum, drink_id: drink_id))
+    respond_to do |format|
+      if @operation.save
+        format.html { redirect_to controller: 'users', notice: "La bière a bien été payé !"}
+        format.json { render :show, status: :created, location: @operation }
+      else
+        format.html { render :new }
+        format.json { render json: @operation.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   # PATCH/PUT /operations/1
   # PATCH/PUT /operations/1.json
   def update
-    if User.find(operation_params[:user_id]).password_digest == params[:password]
       if params[:op][:delete] == "yes"
         @operation.destroy
         respond_to do |format|
@@ -77,9 +72,6 @@ class OperationsController < ApplicationController
           end
         end
       end
-    else
-      redirect_back fallback_location:  ""
-    end
   end
 
   # DELETE /operations/1
