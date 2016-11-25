@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @kegs = Keg.where(endDate: nil)
-    @users = User.all.order(firstName: :asc)
+    @users = User.all.order(lastName: :asc)
     @users.each do |user|
       Operation.where(user_id: user.id).find_each do |operation|
         user.amount = user.amount + operation.sum
