@@ -6,10 +6,12 @@ class UsersController < ApplicationController
   def index
     @kegs = Keg.where(endDate: nil)
     @users = User.all.order(lastName: :asc)
+    @totalAmount = 0
     @users.each do |user|
       Operation.where(user_id: user.id).find_each do |operation|
         user.amount = user.amount + operation.sum
       end
+      @totalAmount = @totalAmount + user.amount
     end
   end
 
