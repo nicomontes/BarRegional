@@ -44,6 +44,13 @@ class OperationsController < ApplicationController
     @operation = Operation.new(operation_params.merge(sum: sum, drink_id: drink_id))
     respond_to do |format|
       if @operation.save
+        amount = User.find(operation_params[:user_id]).amount
+        Operation.where(user_id: operation_params[:user_id]).find_each do |operation|
+          amount = amount + operation.sum
+        end
+        if amount < 0
+          UserNotifierMailer.send_negative_email(User.find(operation_params[:user_id])).deliver
+        end
         format.html { redirect_to controller: 'users', notice: "La bière a bien été payé !"}
         format.json { render :show, status: :created, location: @operation }
       else

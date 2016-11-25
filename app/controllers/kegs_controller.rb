@@ -35,7 +35,7 @@ class KegsController < ApplicationController
   # GET /kegs/1/renew
   def renew
     keg = Keg.find(params[:id])
-    Keg.update(params[:id], :endDate => DateTime.now.getutc())
+    Keg.update(params[:id], :endDate => DateTime.now.getutc().to_s)
     newKeg = Keg.create(name: keg.name, drink_id: keg.drink_id, startDate: DateTime.now.getutc(), capacity: keg.capacity, price: keg.price)
     redirect_to Keg, notice: "Le fût a été changé."
   end

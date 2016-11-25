@@ -16,4 +16,11 @@ class UserNotifierMailer < ApplicationMailer
     :subject => 'Mot de passe perdu' )
   end
   
+  # send a negative email to the user, pass in the user object that contains the user's email address and password
+  def send_negative_email(user)
+    @user = user
+    mail( :to => @user.email,
+    :subject => 'Compte bar en négatif !' )
+  end
+  
 end
