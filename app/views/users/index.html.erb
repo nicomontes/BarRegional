@@ -76,7 +76,7 @@
 <br/>
 <br/>
 
-<% #@kegs.each do |keg| 
+<% @kegs.each do |keg| 
   opNum = 0
   operations = Operation.where("drink_id = ?", keg.drink_id).where("date > ?", keg.startDate)
   operations.each do |op|
