@@ -3,4 +3,8 @@
 
 require_relative 'config/application'
 
+require 'rake'
+require 'bundler'
+require Bundler.load.gems.find{|i| i.name == 'delayed_job'}.gem_dir + "/lib/delayed/tasks"
+
 Rails.application.load_tasks
