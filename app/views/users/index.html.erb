@@ -77,13 +77,12 @@
 <br/>
 
 <% #@kegs.each do |keg| 
-  #opNum = 0
-  #operations = Operation.where("drink_id = ?", keg.drink_id).where("date > ?", keg.startDate)
-  #operations.each do |op|
-  #  opNum = opNum + op.numberDrink
-  #end
-  percent = 50
-  #percent = 100-(100/(keg.capacity/0.3)*opNum)
+  opNum = 0
+  operations = Operation.where("drink_id = ?", keg.drink_id).where("date > ?", keg.startDate)
+  operations.each do |op|
+    opNum = opNum + op.numberDrink.to_s.to_d
+  end
+  percent = 100-(100/(keg.capacity/0.3)*opNum)
 %>
 
 <span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
@@ -98,7 +97,7 @@
     </div>
 </span>
 
-<% #end %>
+<% end %>
 
 <script>
 var hide5000;
