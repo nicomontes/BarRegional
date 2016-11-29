@@ -82,7 +82,8 @@
   operations.each do |op|
     opNum = opNum + op.numberDrink
   end
-  percent = 100-(100/(keg.capacity/0.3)*opNum);
+  percent = 100
+  #percent = 100-(100/(keg.capacity/0.3)*opNum);
 %>
 
 <span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
