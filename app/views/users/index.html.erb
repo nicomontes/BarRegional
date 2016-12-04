@@ -82,7 +82,17 @@
   operations.each do |op|
     opNum = opNum + op.numberDrink.to_s.to_d
   end
-  percent = 100-(100/(keg.capacity/0.3)*opNum)
+  drink = Drink.find(keg.drink_id)
+  if drink.drink_type == "Bière Cidre"
+    volGlass = 0.3
+  elsif drink.drink_type == "Vin"
+    volGlass = 0.15
+  elsif drink.drink_type == "Whisky Pastis Ricard Rhum"
+    volGlass = 0.04
+  else
+    volGlass = 0
+  end
+  percent = 100-(100/(keg.capacity/volGlass)*opNum)
 %>
 
 <span class="mdl-chip mdl-chip--contact mdl-chip--deletable">

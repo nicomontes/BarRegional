@@ -24,7 +24,8 @@ class DrinksController < ApplicationController
   # POST /drinks
   # POST /drinks.json
   def create
-    @drink = Drink.new(drink_params)
+    drink_type = params[:post][:drink_type]
+    @drink = Drink.new(drink_params.merge(drink_type: drink_type))
     if params[:admin_password] == ENV["ADMIN_PASSWORD"]
       respond_to do |format|
         if @drink.save
@@ -51,7 +52,8 @@ class DrinksController < ApplicationController
         end
       else
         respond_to do |format|
-          if @drink.update(drink_params)
+          drink_type = params[:post][:drink_type]
+          if @drink.update(drink_params.merge(drink_type: drink_type))
             format.html { redirect_to Drink, notice: 'La boisson a bien été modifiée' }
             format.json { render :show, status: :ok, location: @drink }
           else

@@ -20,9 +20,15 @@
   
   <br/>
   
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :drink_type, class: 'mdl-textfield__label', value: 'Type de boisson' %>
-    <%= f.text_field :drink_type, class: 'mdl-textfield__input' %>
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+    <input class="mdl-textfield__input" id="post_drink_type" name="post[drink_type]" value="" type="text" readonly tabIndex="-1" data-val=""/>
+      <label class="mdl-textfield__label" for="post_drink_type">Type de Boisson</label>
+      <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="post_drink_type">        
+          <li class="mdl-menu__item" data-val ="1">Soft</li>
+          <li class="mdl-menu__item" data-val ="2">Bière Cidre</li>
+          <li class="mdl-menu__item" data-val ="3">Vin</li>
+          <li class="mdl-menu__item" data-val ="4">Whisky Pastis Ricard Rhum</li>
+      </ul>
   </div>
   
   <br/>
