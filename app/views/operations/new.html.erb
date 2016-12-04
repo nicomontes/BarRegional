@@ -20,7 +20,7 @@
   
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
     <input class="mdl-textfield__input" id="post_drink" name="post[drink]" value="" type="text" readonly tabIndex="-1" data-val=""/>
-      <label class="mdl-textfield__label" for="post_drink">Type de Bière</label>
+      <label class="mdl-textfield__label" for="post_drink">Boisson</label>
       <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="post_drink">        
         <% Drink.all.collect.each do |drink| %>
           <li class="mdl-menu__item" data-val ="<%= drink.id %>"><%= drink.name %></li>
@@ -32,7 +32,7 @@
   
 
   <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :numberDrink, class: 'mdl-textfield__label', value: 'Nombre de bières' %>
+    <%= f.label :numberDrink, class: 'mdl-textfield__label', value: 'Nombre de verres' %>
     <%= f.number_field :numberDrink, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.1' %>
     <span class="mdl-textfield__error">Ce n'est pas un nombre valide</span>
   </div>

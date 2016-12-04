@@ -15,7 +15,7 @@
     
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
     <input class="mdl-textfield__input" id="post_drink" name="post[drink]" value="<%= Drink.find(@keg.drink_id).name %>" type="text" readonly tabIndex="-1" data-val=""/>
-      <label class="mdl-textfield__label" for="post_drink">Type de Bière</label>
+      <label class="mdl-textfield__label" for="post_drink">Boisson</label>
       <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="post_drink">        
         <% Drink.all.collect.each do |drink| %>
           <li class="mdl-menu__item" data-val ="<%= drink.id %>"><%= drink.name %></li>
