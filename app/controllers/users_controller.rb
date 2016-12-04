@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create    
-    amount = user_params[:initAmount].to_i
+    amount = user_params[:initAmount].to_f
     @user = User.new(user_params.merge(amount: amount))
 
     respond_to do |format|

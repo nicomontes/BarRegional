@@ -15,7 +15,7 @@ class KegsController < ApplicationController
     if @keg.endDate
       operations = Operation.where("drink_id = ?", @keg.drink_id).where("date > ?", @keg.startDate).where("date < ?", @keg.endDate)
       operations.each do |op|
-        @opNum = @opNum + op.numberDrink
+        @opNum = @opNum + op.numberDrink.to_s.to_d
         @profit = @profit - op.sum
       end
     else
