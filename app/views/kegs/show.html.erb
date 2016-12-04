@@ -3,7 +3,6 @@
 <table class="mdl-data-table mdl-js-data-table" id="Table">
   <thead>
     <tr>
-      <th>Nom</th>
       <th>Type</th>
       <th>Startdate</th>
       <th>Enddate</th>
@@ -16,7 +15,6 @@
 
   <tbody>
       <tr>
-        <td><%= @keg.name %></td>
         <td><%= Drink.find(@keg.drink_id).name %></td>
         <td><%= @keg.startDate %></td>
         <td><%= @keg.endDate %></td>
