@@ -32,6 +32,13 @@
   </div>
   
   <br/>
+  
+  <div class="mdl-textfield mdl-js-textfield">
+    <%= f.label :comment, class: 'mdl-textfield__label', value: 'Commentaire'%>
+    <%= f.text_field :comment, class: 'mdl-textfield__input' %>
+  </div>
+  
+  <br/>
 
   <div class="field" hidden>
     <%= f.label :user_id %>

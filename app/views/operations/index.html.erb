@@ -21,6 +21,7 @@
       <th>Somme</th>
       <th>Boisson</th>
       <th>Nombre de Bière</th>
+      <th>Commentaire</th>
       <th>Vélivole</th>
       <th colspan="3"></th>
     </tr>
@@ -37,6 +38,7 @@
           <% end %>
         </td>
         <td><%= operation.numberDrink %></td>
+        <td><%= operation.comment %></td>
         <td><%= User.find(operation.user_id).firstName %> <%= User.find(operation.user_id).lastName %> <br/> <%= User.find(operation.user_id).alias %></td>
         <td>
           <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/operations/<%=operation.id%>/edit'">
