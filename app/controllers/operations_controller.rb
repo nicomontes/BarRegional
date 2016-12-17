@@ -4,7 +4,7 @@ class OperationsController < ApplicationController
   # GET /operations
   # GET /operations.json
   def index
-    @operations = Operation.all
+    @operations = Operation.all.order("date DESC")
   end
 
   # GET /operations/1
