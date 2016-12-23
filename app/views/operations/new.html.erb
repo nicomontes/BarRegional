@@ -22,7 +22,7 @@
     <input class="mdl-textfield__input" id="post_drink" name="post[drink]" value="" type="text" readonly tabIndex="-1" data-val=""/>
       <label class="mdl-textfield__label" for="post_drink">Boisson</label>
       <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="post_drink">        
-        <% Keg.where.not('endDate' => nil).collect.each do |keg| %>
+        <% Keg.where('endDate' => nil).collect.each do |keg| %>
           <li class="mdl-menu__item" data-val ="<%= keg.drink_id %>"><%= Drink.find(keg.drink_id).name %></li>
         <% end %>
       </ul>
