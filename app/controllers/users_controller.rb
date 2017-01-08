@@ -8,12 +8,13 @@ class UsersController < ApplicationController
     @users = User.all.order(lastName: :asc)
     @totalAmount = 0
     @operationLastMouth = Hash.new {}
+    @operationTotal = Hash.new {}
     @users.each do |user|
+      @operationTotal[user.id] = 0
       Operation.where(user_id: user.id).find_each do |operation|
-        user.amount = user.amount + operation.sum
+        @operationTotal[user.id] = @operationTotal[user.id] + operation.sum
       end
-      @totalAmount = @totalAmount + user.amount
-      puts "----------"
+      @operationTotal[user.id] = @operationTotal[user.id] + user.amount
       totalOperationLastMouth = 0
       Operation.where(user_id: user.id).where("created_at > ?", Date.today.last_month()).find_each do |operation|
         if operation.sum < 0
