@@ -26,24 +26,24 @@
   </thead>
 
   <tbody>
-    <% @users.each do |user| %>
+    <% @operationLastMouth.each do |key, value| %>
       <tr>
-        <td><%= user.lastName %></td>
-        <td><%= user.firstName %></td>
-        <td><%= user.alias %></td>
-        <td><%= user.amount %></td>
+        <td><%= @users.find(key).lastName %></td>
+        <td><%= @users.find(key).firstName %></td>
+        <td><%= @users.find(key).alias %></td>
+        <td><%= @users.find(key).amount %></td>
         <td>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/users/<%=user.id%>'">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/users/<%=@users.find(key).id%>'">
             <i class="large material-icons">zoom_in</i>
           </button>
         </td>
         <td>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/operations/new?userid=<%=user.id%>'">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/operations/new?userid=<%=@users.find(key).id%>'">
             <%= image_tag "beer_glass.svg", height: "30", width: "30" %>
           </button>
         </td>
         <td>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/operations/add?userid=<%=user.id%>'">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/operations/add?userid=<%=@users.find(key).id%>'">
             <i class="large material-icons">euro_symbol</i>
           </button>
         </td>
