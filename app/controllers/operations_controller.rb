@@ -50,7 +50,7 @@ class OperationsController < ApplicationController
         if amount < 0
           UserNotifierMailer.send_negative_email(User.find(operation_params[:user_id])).deliver
         end
-        format.html { redirect_to controller: 'users', notice: "La bière a bien été payé !"}
+        format.html { redirect_to User, notice: "Opération prise en compte !"}
         format.json { render :show, status: :created, location: @operation }
       else
         format.html { render :new }
