@@ -39,11 +39,11 @@ class UsersController < ApplicationController
   
   # GET /users/1/lost
   def lost
-    user = User.find(params["id"])
-    UserNotifierMailer.send_lost_email(user).deliver
-    respond_to do |format|
-      format.html { redirect_to User, notice: "Mot de passe de l'utilisateur " + @user.firstName + " " + @user.lastName + " à été envoyé sur son adresse email." }
-    end
+    #user = User.find(params["id"])
+    #UserNotifierMailer.send_lost_email(user).deliver
+    #respond_to do |format|
+    #  format.html { redirect_to User, notice: "Mot de passe de l'utilisateur " + @user.firstName + " " + @user.lastName + " à été envoyé sur son adresse email." }
+    #end
   end
 
   # GET /users/new

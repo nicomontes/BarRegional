@@ -1,11 +1,160 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1><%= @user.firstName %>,</h1>
-    <P>Merci de ton inscription au bar CVVR.</P>
-    <p>Tu peux maintenant payer ta bière !</p>
-  </body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" data-dnd="true">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <!--[if !mso]><!-->
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <!--<![endif]-->
+
+  <!--[if (gte mso 9)|(IE)]><style type="text/css">
+  table {border-collapse: collapse;}
+  table, td {mso-table-lspace: 0pt;mso-table-rspace: 0pt;}
+  img {-ms-interpolation-mode: bicubic;}
+  </style>
+  <![endif]-->
+  <style type="text/css">
+  body {
+    color: #9B9B9B;
+  }
+  body a {
+    color: #0070CD;
+    text-decoration: none;
+  }
+  p { margin: 0; padding: 0; }
+  table[class="wrapper"] {
+    width:100% !important;
+    table-layout: fixed;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+  img[class="max-width"] {
+    max-width: 100% !important;
+  }
+  @media screen and (max-width:480px) {
+    .preheader .rightColumnContent,
+    .footer .rightColumnContent {
+        text-align: left !important;
+    }
+    .preheader .rightColumnContent div,
+    .preheader .rightColumnContent span,
+    .footer .rightColumnContent div,
+    .footer .rightColumnContent span {
+      text-align: left !important;
+    }
+    .preheader .rightColumnContent,
+    .preheader .leftColumnContent {
+      font-size: 80% !important;
+      padding: 5px 0;
+    }
+    table[class="wrapper-mobile"] {
+      width: 100% !important;
+      table-layout: fixed;
+    }
+    img[class="max-width"] {
+      height: auto !important;
+    }
+    a[class="bulletproof-button"] {
+      display: block !important;
+      width: auto !important;
+      font-size: 80%;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    // 2 columns
+    #templateColumns{
+        width:100% !important;
+    }
+
+    .templateColumnContainer{
+        display:block !important;
+        width:100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+  }
+  </style>
+  <style>
+  body, p, div { font-family: helvetica,arial,sans-serif; }
+</style>
+  <style>
+  body, p, div { font-size: 15px; }
+</style>
+</head>
+<body yahoofix="true" style="min-width: 100%; margin: 0; padding: 0; font-size: 15px; font-family: helvetica,arial,sans-serif; color: #9B9B9B; background-color: #FFFFFF; color: #9B9B9B;" data-attributes='%7B%22dropped%22%3Atrue%2C%22bodybackground%22%3A%22%23FFFFFF%22%2C%22bodyfontname%22%3A%22helvetica%2Carial%2Csans-serif%22%2C%22bodytextcolor%22%3A%22%239B9B9B%22%2C%22bodylinkcolor%22%3A%22%230070CD%22%2C%22bodyfontsize%22%3A15%7D'>
+  <center class="wrapper">
+    <div class="webkit">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper" bgcolor="#FFFFFF">
+      <tr><td valign="top" bgcolor="#FFFFFF" width="100%">
+      <!--[if (gte mso 9)|(IE)]>
+      <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+          <![endif]-->
+            <table width="100%" role="content-container" class="outer" data-attributes='%7B%22dropped%22%3Atrue%2C%22containerpadding%22%3A%220%2C0%2C0%2C0%22%2C%22containerwidth%22%3A600%2C%22containerbackground%22%3A%22%23FFFFFF%22%7D' align="center" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="100%"><table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td>
+                    <!--[if (gte mso 9)|(IE)]>
+                      <table width="600" align="center" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td>
+                            <![endif]-->
+                              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width:600px;" align="center">
+                                <tr><td role="modules-container" style="padding: 0px 0px 0px 0px; color: #9B9B9B; text-align: left;" bgcolor="#FFFFFF" width="100%" align="left">
+                                  <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" style="display:none !important; visibility:hidden; opacity:0; color:transparent; height:0; width:0;" class="module preheader preheader-hide" role="module" data-type="preheader">
+  <tr><td role="module-content"><p>CVVR</p></td></tr>
+</table>
+<table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0"  width="100%" style="table-layout: fixed;" data-attributes='%7B%22dropped%22%3Atrue%2C%22child%22%3Afalse%2C%22padding%22%3A%220%2C0%2C0%2C0%22%2C%22containerbackground%22%3A%22%23ffffff%22%7D'>
+<tr>
+  <td role="module-content"  valign="top" height="100%" style="padding: 0px 0px 0px 0px;" bgcolor="#ffffff"><hr /> <h1 style="text-align: center;">Bar CVVR</h1>  <div> <h1 style="font-variant-ligatures: normal; font-variant-caps: normal; background-color: rgb(255, 255, 255); text-align: center;">Inscription</h1> </div>  <hr /> <div>&nbsp;</div> </td>
+</tr>
+</table>
+<table role="module" data-type="image" border="0" align="center" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" class="wrapper" data-attributes='%7B%22child%22%3Afalse%2C%22link%22%3A%22%22%2C%22width%22%3A%225184%22%2C%22height%22%3A%223456%22%2C%22imagebackground%22%3A%22%23FFFFFF%22%2C%22url%22%3A%22https%3A//marketing-image-production.s3.amazonaws.com/uploads/dc2fb23bb30e11deb500c6189855d5e52a73b40a688f10faf8ef11674e97b62987901417f96f95647c759e671cbf0918c9e440935b944e19a5155d83a14d2c9c.jpg%22%2C%22alt_text%22%3A%22%22%2C%22dropped%22%3Atrue%2C%22imagemargin%22%3A%220%2C0%2C0%2C0%22%2C%22alignment%22%3A%22center%22%2C%22responsive%22%3Atrue%7D'>
+<tr>
+  <td style="font-size:6px;line-height:10px;background-color:#FFFFFF;padding: 0px 0px 0px 0px;" valign="top" align="center" role="module-content"><!--[if mso]>
+<center>
+<table width="5184" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;">
+  <tr>
+    <td width="5184" valign="top">
+<![endif]-->
+
+  <img class="max-width"  width="5184"   height=""  src="https://marketing-image-production.s3.amazonaws.com/uploads/58ac2ccf39d494c2c586897a4c249b7790077e6216e15f7d28e8268eb64939fc711f73af6fb506b56f0d9991ce1009094785baaa2ead7ee011546e9f0d33cee0.jpg" alt="" border="0" style="display: block; color: #000; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px;  max-width: 5184px !important; width: 100% !important; height: auto !important; " />
+
+<!--[if mso]>
+</td></tr></table>
+</center>
+<![endif]--></td>
+</tr>
+</table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0"  width="100%" style="table-layout: fixed;" data-attributes='%7B%22dropped%22%3Atrue%2C%22child%22%3Afalse%2C%22padding%22%3A%2234%2C5%2C34%2C5%22%2C%22containerbackground%22%3A%22%23ffffff%22%7D'>
+<tr>
+  <td role="module-content"  valign="top" height="100%" style="padding: 34px 5px 34px 5px;" bgcolor="#ffffff"><h2 style="text-align: center;"><span style="font-size:24px;">Salut <%= @user.firstName %>,</span></h2>  <div style="text-align: center;"> <p>Merci de ton inscription au bar CVVR.</p>  <p>Tu peux maintenant payer ta bi&egrave;re !</p> </div> </td>
+</tr>
+</table>
+
+                                </tr></td>
+                              </table>
+                            <!--[if (gte mso 9)|(IE)]>
+                          </td>
+                        </td>
+                      </table>
+                    <![endif]-->
+                    </td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table>
+          <!--[if (gte mso 9)|(IE)]>
+          </td>
+        </tr>
+      </table>
+      <![endif]-->
+      </tr></td>
+      </table>
+    </div>
+  </center>
+</body>
 </html>
