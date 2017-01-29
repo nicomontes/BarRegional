@@ -48,6 +48,6 @@
   <br/>
 
   <div class="mdl-textfield mdl-js-textfield">
-    <%= button_tag 'Valider', class: 'mdl-button mdl-js-button mdl-button--raised' %>
+    <%= button_tag 'Valider', class: 'mdl-button mdl-js-button mdl-button--raised', onClick: "this.form.submit(); this.disabled=true; this.innerHTML='Envoie…';" %>
   </div>
 <% end %>
