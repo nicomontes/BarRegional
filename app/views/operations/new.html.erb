@@ -1,4 +1,4 @@
-<h3>Nouvelle tournée</h3>
+<h3>Nouvelle tournée de <%= User.find(@operation.user_id).firstName %> <%= User.find(@operation.user_id).lastName %></h3>
 
 <%= form_for(@operation) do |f| %>
   <% if @operation.errors.any? %>
