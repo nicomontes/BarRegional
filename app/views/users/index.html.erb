@@ -99,7 +99,7 @@
     <%= image_tag "beer_keg.svg", style: "height: 25px !important; width: 25px !important", class:  "mdl-chip__contact"%>
     <span class="mdl-chip__text"><%= keg.name %> <%= Drink.find(keg.drink_id).name %> : <%= opNum.to_i %>
     </span>
-    <a href="/kegs/<%= keg.id %>/renew/" class="mdl-chip__action"><i class="material-icons">cached</i></a>
+    <a href="/kegs/<%= keg.id %>/renew/" class="mdl-chip__action" onclick="if (confirm('Voulez-vous changer le fût de <%= Drink.find(keg.drink_id).name %> ?') == true) {} else {return false;}"><i class="material-icons">cached</i></a>
     <div id="p1" style="width: 100%" class="mdl-progress mdl-js-progress" value="<%= opNum %>">
       <div class="progressbar bar bar1" style="width: <%= percent %>%;"></div>
       <div class="bufferbar bar bar2" style="width: 100%;"></div>
