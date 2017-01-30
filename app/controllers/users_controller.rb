@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       @operationTotal[user.id] = @operationTotal[user.id] + user.amount
       @totalAmount = @totalAmount + @operationTotal[user.id]
       totalOperationLastMouth = 0
-      Operation.where(user_id: user.id).where("created_at > ?", Date.today.last_month()).find_each do |operation|
+      Operation.where(user_id: user.id).where.not('numberDrink' => nil).where("created_at > ?", Date.today.last_month()).find_each do |operation|
         if operation.sum < 0
           totalOperationLastMouth = totalOperationLastMouth + operation.sum
         end

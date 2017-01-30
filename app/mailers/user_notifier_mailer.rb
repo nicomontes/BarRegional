@@ -38,7 +38,7 @@ class UserNotifierMailer < ApplicationMailer
       @operationTotal[user.id] = @operationTotal[user.id] + user.amount
       @totalAmount = @totalAmount + @operationTotal[user.id]
       totalOperationLastMouth = 0
-      Operation.where(user_id: user.id).where("created_at > ?", Date.today.last_month()).find_each do |operation|
+      Operation.where(user_id: user.id).where.not('numberDrink' => nil).where("created_at > ?", Date.today.last_month()).find_each do |operation|
         if operation.sum < 0
           totalOperationLastMouth = totalOperationLastMouth + operation.sum
         end
@@ -52,6 +52,7 @@ class UserNotifierMailer < ApplicationMailer
     @userAward = []
     @operationLastMouth.each do |key, value|
       @userAward[i] = @users.find(key).firstName + " " + @users.find(key).lastName
+      @monthAmount[i] = value
       i = i + 1
     end
   
