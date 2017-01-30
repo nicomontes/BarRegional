@@ -21,6 +21,7 @@
 <table style="width:100%;" class="mdl-data-table mdl-js-data-table" id="Table">
   <thead>
     <tr>
+      <th>#</th>
       <th>Nom</th>
       <th>Prénom</th>
       <th>Surnom</th>
@@ -30,14 +31,15 @@
   </thead>
 
   <tbody>
+    <% i = 1 %>
     <% @operationLastMouth.each do |key, value| %>
       <tr>
+        <td><%= i %></td>
         <td><%= @users.find(key).lastName %></td>
         <td><%= @users.find(key).firstName %></td>
         <td><%= @users.find(key).alias %></td>
         <td><%= @operationTotal[key] %></td>
         <td>
-          <%= value %>
           <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/users/<%=@users.find(key).id%>'">
             <i class="large material-icons">zoom_in</i>
           </button>
@@ -53,6 +55,7 @@
           </button>
         </td>
       </tr>
+      <% i = i + 1 %>
     <% end %>
   </tbody>
 </table>
