@@ -5,9 +5,9 @@ namespace :scheduler do
     @users = User.all
     email = ""
     @users.each do |user|
-      email = email + ", " + user.email
+      puts user.firstName
+      puts user.email
     end
-    puts email
     #UserNotifierMailer.send_award_email(email).deliver
   end
 
