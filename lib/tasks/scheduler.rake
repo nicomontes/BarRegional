@@ -1,10 +1,8 @@
-desc "This task is called by the Heroku scheduler add-on"
-task :update_feed => :environment do
-  puts "Updating feed..."
-  NewsFeed.update
-  puts "done."
-end
+namespace :scheduler do
 
-task :send_award => :environment do
-  UserNotifierMailer.send_award_email().deliver
+  desc "This task send an award email and is called by heroku"
+  task :send_award => :environment do
+    UserNotifierMailer.send_award_email().deliver
+  end
+
 end
