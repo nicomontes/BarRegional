@@ -6,7 +6,7 @@ namespace :scheduler do
     email = ""
     @users.each do |user|
       if (Date.today.mday == 1 && user.email != "")
-        UserNotifierMailer.send_award_email(email).deliver
+        UserNotifierMailer.send_award_email(user).deliver
       end
     end
   end
