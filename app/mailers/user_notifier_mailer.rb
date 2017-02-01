@@ -25,8 +25,9 @@ class UserNotifierMailer < ApplicationMailer
   end
   
   # send an award email
-  def send_award_email()
-    if Date.today.mday == 1
+  def send_award_email(user)
+    @user = user
+    if (Date.today.mday == 1 && @user.email != nil)
       @users = User.all.order(lastName: :asc)
       @totalAmount = 0
       @operationLastMouth = Hash.new {}
@@ -57,12 +58,8 @@ class UserNotifierMailer < ApplicationMailer
         @monthAmount[i] = value
         i = i + 1
       end
-    
-      @operationLastMouth.each do |key, value|
-        @user = @users.find(key)
-        mail( :to => @users.find(key).email,
-        :subject => 'Bar CVVR Awards !' )
-      end
+      mail( :to => @user.email,
+      :subject => 'Bar CVVR Awards !' )
     end
   end
 end
