@@ -5,8 +5,10 @@ namespace :scheduler do
     @users = User.all
     email = ""
     @users.each do |user|
-      puts user.firstName
-      puts user.email
+      if (Date.today.mday == 1 && @user.email != "")
+        puts user.firstName
+        puts user.email
+      end
     end
     #UserNotifierMailer.send_award_email(email).deliver
   end
