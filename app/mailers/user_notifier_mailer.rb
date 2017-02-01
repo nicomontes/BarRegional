@@ -27,7 +27,7 @@ class UserNotifierMailer < ApplicationMailer
   # send an award email
   def send_award_email(user)
     @user = user
-    if (Date.today.mday == 1 && @user.email != nil)
+    if (Date.today.mday == 1 && @user.email != "")
       @users = User.all.order(lastName: :asc)
       @totalAmount = 0
       @operationLastMouth = Hash.new {}
