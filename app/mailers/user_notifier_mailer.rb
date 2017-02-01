@@ -26,40 +26,42 @@ class UserNotifierMailer < ApplicationMailer
   
   # send an award email
   def send_award_email()
-    @users = User.all.order(lastName: :asc)
-    @totalAmount = 0
-    @operationLastMouth = Hash.new {}
-    @operationTotal = Hash.new {}
-    @users.each do |user|
-      @operationTotal[user.id] = 0
-      Operation.where(user_id: user.id).find_each do |operation|
-        @operationTotal[user.id] = @operationTotal[user.id] + operation.sum
-      end
-      @operationTotal[user.id] = @operationTotal[user.id] + user.amount
-      @totalAmount = @totalAmount + @operationTotal[user.id]
-      totalOperationLastMouth = 0
-      Operation.where(user_id: user.id).where.not('numberDrink' => nil).where("created_at > ?", Date.today.last_month()).find_each do |operation|
-        if operation.sum < 0
-          totalOperationLastMouth = totalOperationLastMouth + operation.sum
+    if Date.today.mday == 1
+      @users = User.all.order(lastName: :asc)
+      @totalAmount = 0
+      @operationLastMouth = Hash.new {}
+      @operationTotal = Hash.new {}
+      @users.each do |user|
+        @operationTotal[user.id] = 0
+        Operation.where(user_id: user.id).find_each do |operation|
+          @operationTotal[user.id] = @operationTotal[user.id] + operation.sum
         end
+        @operationTotal[user.id] = @operationTotal[user.id] + user.amount
+        @totalAmount = @totalAmount + @operationTotal[user.id]
+        totalOperationLastMouth = 0
+        Operation.where(user_id: user.id).where.not('numberDrink' => nil).where("created_at > ?", Date.today.last_month()).find_each do |operation|
+          if operation.sum < 0
+            totalOperationLastMouth = totalOperationLastMouth + operation.sum
+          end
+        end
+        @operationLastMouth[user.id] = totalOperationLastMouth
       end
-      @operationLastMouth[user.id] = totalOperationLastMouth
-    end
-    @userSorted = {}
-    @operationLastMouth = @operationLastMouth.sort_by {|_key, value| value}.to_h
-  
-    i = 0
-    @userAward = []
-    @operationLastMouth.each do |key, value|
-      @userAward[i] = @users.find(key).firstName + " " + @users.find(key).lastName
-      @monthAmount[i] = value
-      i = i + 1
-    end
-  
-    @operationLastMouth.each do |key, value|
-      @user = @users.find(key)
-      mail( :to => @users.find(key).email,
-      :subject => 'Bar CVVR Awards !' )
+      @userSorted = {}
+      @operationLastMouth = @operationLastMouth.sort_by {|_key, value| value}.to_h
+    
+      i = 0
+      @userAward = []
+      @operationLastMouth.each do |key, value|
+        @userAward[i] = @users.find(key).firstName + " " + @users.find(key).lastName
+        @monthAmount[i] = value
+        i = i + 1
+      end
+    
+      @operationLastMouth.each do |key, value|
+        @user = @users.find(key)
+        mail( :to => @users.find(key).email,
+        :subject => 'Bar CVVR Awards !' )
+      end
     end
   end
 end
