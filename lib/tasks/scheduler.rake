@@ -5,7 +5,7 @@ namespace :scheduler do
     @users = User.all
     email = ""
     @users.each do |user|
-      if (Date.today.mday == 1 && @user.email != "")
+      if (Date.today.mday == 1 && user.email != "")
         puts user.firstName
         puts user.email
       end
