@@ -5,6 +5,6 @@ task :update_feed => :environment do
   puts "done."
 end
 
-task :send_award_email => :environment do
-  User.send_reminders
+task :send_award => :environment do
+  UserNotifierMailer.send_award_email().deliver
 end

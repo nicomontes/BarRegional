@@ -51,6 +51,7 @@ class UserNotifierMailer < ApplicationMailer
     
       i = 0
       @userAward = []
+      @monthAmount = []
       @operationLastMouth.each do |key, value|
         @userAward[i] = @users.find(key).firstName + " " + @users.find(key).lastName
         @monthAmount[i] = value
