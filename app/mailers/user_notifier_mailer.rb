@@ -61,7 +61,7 @@ class UserNotifierMailer < ApplicationMailer
         i = i + 1
       end
       j = 0
-      while (j < 10)
+      while (j < 15)
         mail( :to => userAwardEmail[j],
         :subject => 'Bar CVVR Awards !' )
         j = j + 1
