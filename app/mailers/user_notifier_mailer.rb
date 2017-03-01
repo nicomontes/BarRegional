@@ -63,8 +63,7 @@ class UserNotifierMailer < ApplicationMailer
       j = 0
       while (j < 15)
         if userAwardId[j] == @user.id
-          puts j
-          puts @user.email
+          puts "Send to : " + @user.email
           mail( :to => @user.email,
           :subject => 'Bar CVVR Awards !' )
         end
