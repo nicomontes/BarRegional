@@ -52,18 +52,22 @@ class UserNotifierMailer < ApplicationMailer
     
       i = 0
       @userAward = []
-      userAwardEmail = []
+      userAwardId = []
       @monthAmount = []
       @operationLastMouth.each do |key, value|
         @userAward[i] = @users.find(key).firstName + " " + @users.find(key).lastName
-        userAwardEmail[i] = @users.find(key).email
+        userAwardId[i] = @users.find(key).id
         @monthAmount[i] = value
         i = i + 1
       end
       j = 0
       while (j < 15)
-        mail( :to => userAwardEmail[j],
-        :subject => 'Bar CVVR Awards !' )
+        if userAwardId[j] == @user.id
+          puts j
+          puts @user.email
+          mail( :to => @user.email,
+          :subject => 'Bar CVVR Awards !' )
+        end
         j = j + 1
       end
     end
