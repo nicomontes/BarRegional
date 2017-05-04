@@ -1,31 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<h3><%= @user.firstName %> <%= @user.lastName %></h3>
+<h3><b><%= @user.firstName %> <%= @user.lastName %></b></h3>
 
-<br/>
-<br/>
-<br/>
-
-<table class="mdl-data-table mdl-js-data-table" id="infoTable">
-  <thead>
-    <tr>
-      <th>Surnom</th>
-      <th>Compte</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><%= @user.alias %></td>
-      <td><%= @user.amount %></td>
-      <td><%= @user.email %></td>
-    </tr>
-  </tbody>
-</table>
-
-<br/>
-<br/>
-<br/>
+<h6>
+  <%= @user.alias %></td> : <%= @user.amount %>€, <%= @user.email %>
+</h6>
 
 
 <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="window.location.href='/operations/add?userid=<%=@user.id%>'">
@@ -40,17 +19,14 @@ Edition
 Liste
 </button>
 
-<br/>
-<br/>
-<br/>
+<svg width="0px" id="visualisation"></svg>
 
-<svg width="200px" id="visualisation"></svg>
+<h5> Les 3 dernières opérations : </h5>
+<% @operations.first(3).each do |operation| %>
+  <h6 style="margin-left: 30px;"><%= operation.date %> : <%= operation.sum %>€</h6>
+<% end %>
 
-<br/>
-<br/>
-<br/>
-
-<table class="mdl-data-table mdl-js-data-table" id="opTable">
+<table id="opTable" style="display:none">
   <thead>
     <tr>
       <th>Date</th>
@@ -69,7 +45,7 @@ Liste
 </table>
 
 <script>
-compte = document.getElementById("infoTable").getElementsByTagName("tr")[1].getElementsByTagName("td")[1].innerHTML
+compte = <%= @user.amount %>
 data = new Array();
 table = document.getElementById("opTable");
 tr = table.getElementsByTagName("tr");
@@ -90,8 +66,8 @@ for (i = tr.length -1; tr[i]; i--) {
   }
 }
 
-var margin = {top: 20, right: 50, bottom: 30, left: 50},
-  width = $(window).width() - margin.left - margin.right,
+var margin = {top: 20, right: 100, bottom: 30, left: 100},
+  width = $(window).width() - margin.left - margin.right - 66,
   height = 250 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%d-%b-%y").parse,
@@ -145,7 +121,7 @@ svg.append("g")
     .attr("y", 6)
     .attr("dy", ".71em")
     .style("text-anchor", "end")
-    .text("text");
+    .text("");
 
 svg.append("path")
     .datum(data)
@@ -162,7 +138,7 @@ focus.append("circle")
 
 focus.append("text")
   .attr("x", 9)
-  .attr("dy", ".35em");
+  .attr("dy", "-1em");
 
 svg.append("rect")
   .attr("class", "overlay")
@@ -179,7 +155,8 @@ function mousemove() {
     d1 = data[i],
     d = x0 - d0.date > d1.date - x0 ? d1 : d0;
   focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
-  focus.select("text").text(formatCurrency(d.close));
+  date = new Date(d.date);
+  focus.select("text").text(date.toLocaleDateString()+" "+d.close+"€");
 }
 
 
