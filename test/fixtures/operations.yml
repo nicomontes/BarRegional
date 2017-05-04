@@ -2,10 +2,10 @@
 
 one:
   date: 2016-11-05 16:22:41
-  sum: 9.99
+  sum: 1.2
   user_id: 1
 
 two:
   date: 2016-11-05 16:22:41
-  sum: 9.99
+  sum: 12
   user_id: 1

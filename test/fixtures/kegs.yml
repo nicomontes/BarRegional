@@ -2,16 +2,16 @@
 
 one:
   name: MyString
-  drink_id: 9.99
+  drink_id: 1
   startDate: 2016-11-18
   endDate: 2016-11-18
-  capacity: 9.99
-  price: 9.99
+  capacity: 34
+  price: 80
 
 two:
   name: MyString
-  drink_id: 9.99
+  drink_id: 1
   startDate: 2016-11-18
   endDate: 2016-11-18
-  capacity: 9.99
-  price: 9.99
+  capacity: 35
+  price: 90

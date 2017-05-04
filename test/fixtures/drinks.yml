@@ -3,9 +3,9 @@
 one:
   name: MyString
   drink_type: MyString
-  price: 9.99
+  price: 1.2
 
 two:
   name: MyString
   drink_type: MyString
-  price: 9.99
+  price: 1.2
