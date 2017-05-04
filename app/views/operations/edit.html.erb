@@ -1,3 +1,5 @@
+<% provide(:title, "BarCVVR Edition de l'Opération de "+User.find(@operation.user_id).firstName) %>
+
 <h3>Modification de l'opération de <%= User.find(@operation.user_id).firstName %> <%= User.find(@operation.user_id).lastName %></h3>
 
 <%= form_for(@operation) do |f| %>

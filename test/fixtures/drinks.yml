@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  drink_type: MyString
-  price: 1.2
+  id: 1
+  name: Blonde
+  drink_type: Bière
+  price: 1
 
 two:
-  name: MyString
-  drink_type: MyString
+  id: 2
+  name: Brune
+  drink_type: Soft
   price: 1.2

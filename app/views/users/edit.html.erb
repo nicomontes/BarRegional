@@ -1,3 +1,5 @@
+<% provide(:title, "BarCVVR Edition de "+@user.firstName) %>
+
 <h3>Edition de <%=@user.firstName%> <%=@user.lastName%></h3>
 
 <%= form_for(@user) do |f| %>

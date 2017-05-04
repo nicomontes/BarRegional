@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   firstName: John
   lastName: Doe
   alias: JD
@@ -10,6 +11,7 @@ one:
   email: j.d@gmail.com
 
 two:
+  id: 2
   firstName: Nico
   lastName: Fer
   alias: Nife
