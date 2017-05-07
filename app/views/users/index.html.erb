@@ -90,7 +90,9 @@
   opNum = 0
   operations = Operation.where("drink_id = ?", keg.drink_id).where("date > ?", keg.startDate)
   operations.each do |op|
-    opNum = opNum + op.numberDrink.to_s.to_d
+    if op.numberDrink.to_s != ""
+      opNum = opNum + op.numberDrink.to_s.to_d
+    end
   end
   drink = Drink.find(keg.drink_id)
   if drink.drink_type == "Bière Cidre"
