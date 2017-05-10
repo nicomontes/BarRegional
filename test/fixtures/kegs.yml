@@ -4,16 +4,16 @@ one:
   id: 1
   name: MyString
   drink_id: 1
-  startDate: 2016-11-18
-  endDate: 2016-11-18
+  startDate: 2016-11-05 16:22:41 
+  endDate: 2016-11-06 16:23:56
   capacity: 34
   price: 80
 
 two:
   id: 2
   name: MyString
-  drink_id: 1
-  startDate: 2016-11-18
-  endDate: 2016-11-18
+  drink_id: 2
+  startDate: 2016-11-05 16:22:41
+  endDate: 2016-11-06 16:23:56
   capacity: 35
   price: 90

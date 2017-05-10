@@ -19,7 +19,7 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
   
-  test "initAmount should be present ans numeric" do
+  test "initAmount should be present and numeric" do
     @user.initAmount = ""
     assert_not @user.valid?
     @user.initAmount = "jsdhs"

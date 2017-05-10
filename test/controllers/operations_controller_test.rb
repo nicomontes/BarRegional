@@ -18,13 +18,13 @@ class OperationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get "/operations/new?userid=1"
+    get "/operations/new?userid="+@operation.user_id.to_s
     assert_response :success
     assert_select "title", "BarCVVR Tournée de "+User.find(@operation.user_id).firstName
   end
 
   test "should get add" do
-    get "/operations/add?userid=1"
+    get "/operations/add?userid="+@operation.user_id.to_s
     assert_response :success
     assert_select "title", "BarCVVR Renflouage de "+User.find(@operation.user_id).firstName
   end

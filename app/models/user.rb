@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :operations
   has_secure_password
   validates :firstName,  presence: true
   validates :lastName, presence: true
