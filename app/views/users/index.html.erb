@@ -122,11 +122,9 @@
 <% end %>
 
 <script>
-var hide5000;
-hide5000 = setTimeout(hide, 5000 );
 
-function hide () {
-  document.getElementById("toast").setAttribute("hidden", true);
+if (document.getElementById("Search").value.toUpperCase() != "") {
+  Search();
 }
 
 function Search() {
@@ -154,6 +152,14 @@ function Search() {
                 tr[i].style.display = "";
               } else {
                 tr[i].style.display = "none";
+                td3 = tr[i].getElementsByTagName("td")[3];
+                if (td3) {
+                  if (td3.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }
               }
             }
           }
