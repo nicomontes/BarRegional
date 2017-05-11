@@ -23,20 +23,6 @@ class KegTest < ActiveSupport::TestCase
     assert_not @keg.valid?
   end
   
-  test "endDate should be present and are date" do
-    @keg.endDate = ""
-    assert_not @keg.valid?
-    # These tests fail, I don't know why !
-    #@keg.endDate = "2016-11-03"
-    #assert_not @keg.valid?
-    #@keg.endDate = "22:06:30"
-    #assert_not @keg.valid?
-    @keg.endDate = "qskdf"
-    assert_not @keg.valid?
-    @keg.endDate = 43
-    assert_not @keg.valid?
-  end
-  
   test "capacity should be present and positiv numeric" do
     @keg.capacity = ""
     assert_not @keg.valid?

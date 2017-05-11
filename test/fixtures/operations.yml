@@ -2,12 +2,12 @@
 
 one:
   id: 1
-  date: 2016-11-05 16:22:41
+  date: 2016-11-05 16:22:41 UTC
   sum: 1.2
   user_id: 1
 
 two:
   id: 2
-  date: 2016-11-05 16:22:41
+  date: 2016-11-05 16:22:41 UTC
   sum: 12
   user_id: 2
