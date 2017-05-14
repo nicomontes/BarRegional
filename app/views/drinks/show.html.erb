@@ -1,8 +1,6 @@
 <% provide(:title, "BarCVVR Boisson "+params[:id]) %>
 
-<p id="notice"><%= notice %></p>
-
-<table class="mdl-data-table mdl-js-data-table" id="infoTable">
+<table class="col s12 l7 centered highlight striped" id="infoTable">
   <thead>
     <tr>
       <th>Name</th>
@@ -18,3 +16,9 @@
     </tr>
   </tbody>
 </table>
+
+<script>
+  <% if notice %>
+  Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
+  <% end %>
+</script>

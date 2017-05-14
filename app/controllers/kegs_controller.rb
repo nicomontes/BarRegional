@@ -5,6 +5,25 @@ class KegsController < ApplicationController
   # GET /kegs.json
   def index
     @kegs = Keg.all.order("created_at DESC")
+    @opNum = []
+    @profit = []
+    @kegs.each do |keg|
+      @opNum[keg.id] = 0
+      @profit[keg.id] = 0 - keg.price
+      if keg.endDate
+        operations = Operation.where("drink_id = ?", keg.drink_id).where("date > ?", keg.startDate).where("date < ?", keg.endDate)
+        operations.each do |op|
+          @opNum[keg.id] = @opNum[keg.id] + op.numberDrink.to_s.to_d
+          @profit[keg.id] = @profit[keg.id] - op.sum
+        end
+      else
+        operations = Operation.where("drink_id = ?", keg.drink_id).where("date > ?", keg.startDate)
+        operations.each do |op|
+          @opNum[keg.id] = @opNum[keg.id] + op.numberDrink.to_s.to_d
+          @profit[keg.id] = @profit[keg.id] - op.sum
+        end
+      end
+    end
   end
 
   # GET /kegs/1
@@ -48,8 +67,7 @@ class KegsController < ApplicationController
   # POST /kegs.json
   def create
     if params[:admin_password] == ENV["ADMIN_PASSWORD"]
-      drink_name = params[:post][:drink]
-      drink_id = Drink.where(name: drink_name)[0].id
+      drink_id = params[:post][:drink]
       @keg = Keg.new(keg_params.merge(drink_id: drink_id))
       respond_to do |format|
         if @keg.save

@@ -2,64 +2,91 @@
 
 <h3>Modification du breuvage</h3>
 
+<br>
+<br>
+
+<div class="row">
+
 <%= form_for(@drink) do |f| %>
   <% if @drink.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@drink.errors.count, "error") %> prohibited this drink from being saved:</h2>
-
-      <ul>
-      <% @drink.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="row">
+    <div class="col s12 l7">
+      <div class="card red darken-4">
+        <div class="card-content white-text">
+          <span class="card-title"><%= pluralize(@drink.errors.count, "error") %> prohibited this user from being saved:</span>
+          <ul>
+          <% @drink.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
   <% end %>
 
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :name, class: 'mdl-textfield__label', value: 'Nom' %>
-    <%= f.text_field :name, class: 'mdl-textfield__input' %>
-  </div>
-  
-  <br/>
-  
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-    <input class="mdl-textfield__input" id="post_drink_type" name="post[drink_type]" value="<%= @drink.drink_type %>" type="text" readonly tabIndex="-1" data-val=""/>
-      <label class="mdl-textfield__label" for="post_drink_type">Type de Boisson</label>
-      <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="post_drink_type">        
-          <li class="mdl-menu__item" data-val ="1">Soft</li>
-          <li class="mdl-menu__item" data-val ="2">Bière Cidre</li>
-          <li class="mdl-menu__item" data-val ="3">Vin</li>
-          <li class="mdl-menu__item" data-val ="4">Whisky Pastis Ricard Rhum</li>
-      </ul>
-  </div>
-  
-  <br/>
-
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :price, class: 'mdl-textfield__label', value: 'Prix'  %>
-    <%= f.number_field :price, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
-    <span class="mdl-textfield__error">Ce n'est pas un nombre valide</span>
-  </div>
-  
-  <br/>
-  
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :password, class: 'mdl-textfield__label', value: 'Mot de passe Administrateur' %>
-    <%= password_field_tag :admin_password, nil, class: 'mdl-textfield__input' %>
+  <div class="input-field col s12 l7">
+    <%= f.label :name, value: 'Nom' %>
+    <%= f.text_field :name %>
   </div>
 
-  <br/>
+
+  <div class="input-field col s12 l7">
+    <select id="post_drink_type" name="post[drink_type]" value="<%= @drink.drink_type %>">
+      <% option_soft = '<option value="1">Soft</option>'
+      option_beer = '<option value="2">Bière Cidre</option>'
+      option_wine = '<option value="3">Vin</option>'
+      option_whisky = '<option value="4">Whisky Pastis Ricard Rhum</option>'
+      case @drink.drink_type
+      when 'Soft'
+        option_soft = '<option value="1" selected >Soft</option>'
+      when 'Bière Cidre'
+        option_beer = '<option value="2" selected >Bière Cidre</option>'
+      when 'Vin'
+        option_wine = '<option value="3" selected >Vin</option>'
+      when 'Whisky Pastis Ricard Rhum'
+        option_whisky = '<option value="4" selected >Whisky Pastis Ricard Rhum</option>'
+      end
+    %>
+      <%= option_soft.html_safe %>
+      <%= option_beer.html_safe %>
+      <%= option_wine.html_safe %>
+      <%= option_whisky.html_safe %>
+    </select>
+    <label>Type de Boisson</label>
+  </div>
+
   
-  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="drk_delete">
-    <%= check_box("drk", "delete", { class: "mdl-checkbox__input" }, "yes", "no") %>
-    <span class="mdl-checkbox__label">Supprimer la boisson</span>
-  </label>
+  <div class="input-field col s12 l7">
+    <%= f.label :price, value: 'Prix', 'data-error': 'Ce n\'est pas un nombre valide' %>
+    <%= f.text_field :price, pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
+  </div>
 
-  <br/>
-  <br/>  
-  <br/>
+  <div class="input-field col s12 l7">
+    <%= f.label :admin_password, value: 'Mot de passe Administrateur' %>
+    <%= password_field_tag :admin_password, nil %>
+  </div>
+  
+  <div class="col s12">
+    <br>
+      <%= check_box("drk", "delete", { class: "" }, "yes", "no") %>
+      <label for="drk_delete">Supprimer la boisson</label>
+  </div>
 
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= button_tag 'Valider', class: 'mdl-button mdl-js-button mdl-button--raised' %>
+  <div class="col s12 l7">
+    <br/>
+    <br/>  
+    <br/>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Valider
+      <i class="material-icons right">send</i>
+    </button>
   </div>
 <% end %>
+
+</div>
+
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+  });
+</script>

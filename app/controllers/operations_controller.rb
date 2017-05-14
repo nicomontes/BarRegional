@@ -33,8 +33,7 @@ class OperationsController < ApplicationController
   # POST /operations.json
   def create
     if params[:post]
-      drink_name = params[:post][:drink]
-      drink_id = Drink.where(name: drink_name)[0].id
+      drink_id = params[:post][:drink]
       drink_price = Drink.find(drink_id).price.to_f
       sum = 0 - operation_params[:numberDrink].to_f * drink_price
     else

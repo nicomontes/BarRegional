@@ -2,17 +2,26 @@
 
 <h3>Modification de l'opération de <%= User.find(@operation.user_id).firstName %> <%= User.find(@operation.user_id).lastName %></h3>
 
+<br>
+<br>
+
+<div class="row">
 <%= form_for(@operation) do |f| %>
   <% if @operation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@operation.errors.count, "error") %> prohibited this operation from being saved:</h2>
-
-      <ul>
-      <% o@peration.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="row">
+    <div class="col s12 l7">
+      <div class="card red darken-4">
+        <div class="card-content white-text">
+          <span class="card-title"><%= pluralize(@operation.errors.count, "error") %> prohibited this user from being saved:</span>
+          <ul>
+          <% @operation.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
   <% end %>
 
   <div class="field" hidden>
@@ -20,47 +29,48 @@
     <%= f.datetime_select :date, :include_seconds => true%>
   </div>
   
-
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :sum, class: 'mdl-textfield__label', value: 'Somme' %>
-    <%= f.number_field :sum, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
-    <span class="mdl-textfield__error">Ce n'est pas un nombre valide</span>
-  </div>
-  
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :numberDrink, class: 'mdl-textfield__label', value: 'Nombre de verres' %>
-    <%= f.number_field :numberDrink, class: 'mdl-textfield__input', pattern: '^[0-9]*(\.[0-9]+)?', step: '0.01' %>
-    <span class="mdl-textfield__error">Ce n'est pas un nombre valide</span>
-  </div>
-  
-  <br/>
-  
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :comment, class: 'mdl-textfield__label', value: 'Commentaire'%>
-    <%= f.text_field :comment, class: 'mdl-textfield__input' %>
-  </div>
-  
-  <br/>
-
   <div class="field" hidden>
     <%= f.label :user_id %>
     <%= f.number_field :user_id %>
   </div>
   
+  <div class="input-field col s12 l7">
+    <%= f.label :sum, value: 'Somme', 'data-error': 'Ce n\'est pas un nombre valide' %>
+    <%= f.number_field :sum, pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
+  </div>
+  
+  <div class="input-field col s12 l7">
+    <%= f.label :numberDrink, value: 'Nombre de verres', 'data-error': 'Ce n\'est pas un nombre valide' %>
+    <%= f.number_field :numberDrink, pattern: '^[0-9]*(\.[0-9]+)?', step: '0.01' %>
+  </div>
+  
+  <div class="input-field col s12 l7">
+    <%= f.label :comment, value: 'Commentaire' %>
+    <%= f.text_field :comment %>
+  </div>
+  
+  <div class="col s12">
+    <br>
+      <%= check_box("op", "delete", { class: "" }, "yes", "no") %>
+      <label for="op_delete">Supprimer la boisson</label>
+  </div>
+  
   <br/>
   
-  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="op_delete">
-    <%= check_box("op", "delete", { class: "mdl-checkbox__input" }, "yes", "no") %>
-    <span class="mdl-checkbox__label">Supprimer l'opération</span>
-  </label>
-  
-  <br/>
-  
-  <br/>
-  <br/>  
-  <br/>
-
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= button_tag 'Valider', class: 'mdl-button mdl-js-button mdl-button--raised', onClick: "this.form.submit(); this.disabled=true; this.innerHTML='Envoie…';"%>
+  <div class="col s12 l7">
+    <br/>
+    <br/>  
+    <br/>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Valider
+      <i class="material-icons right">send</i>
+    </button>
   </div>
 <% end %>
+
+</div>
+
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+  });
+</script>

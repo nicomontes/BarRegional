@@ -2,57 +2,71 @@
 
 <h3>Création d'un nouveau Vélivole</h3>
 
+<br>
+<br>
+
+<div class="row">
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="row">
+    <div class="col s12 l7">
+      <div class="card red darken-4">
+        <div class="card-content white-text">
+          <span class="card-title"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</span>
+          <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
   <% end %>
 
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :firstName, class: 'mdl-textfield__label', value: 'Prénom'%>
-    <%= f.text_field :firstName, class: 'mdl-textfield__input' %>
-  </div>
-
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :lastName, class: 'mdl-textfield__label', value: 'Nom' %>
-    <%= f.text_field :lastName, class: 'mdl-textfield__input' %>
-  </div>
-
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :alias,  class: 'mdl-textfield__label', value: 'Surnom' %>
-    <%= f.text_field :alias, class: 'mdl-textfield__input' %>
+  <div class="input-field col s12 l7">
+    <%= f.label :firstName, value: 'Prénom' %>
+    <%= f.text_field :firstName %>
   </div>
   
-  <br/>
-
-  <div class="mdl-textfield mdl-js-textfield" hidden>
-    <%= f.label :password_digest, class: 'mdl-textfield__label', value: 'Mot de passe' %>
-    <%= f.password_field :password_digest, class: 'mdl-textfield__input', value: 'test' %>
+  <div class="input-field col s12 l7">
+    <%= f.label :lastName, value: 'Nom' %>
+    <%= f.text_field :lastName %>
   </div>
 
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :initAmount, class: 'mdl-textfield__label', value: 'Compte de départ' %>
-    <%= f.number_field :initAmount, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
-    <span class="mdl-textfield__error">Ce n'est pas un nombre valide</span>
-  </div>
-
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :email, class: 'mdl-textfield__label', value: 'Email' %>
-    <%= f.email_field :email, class: 'mdl-textfield__input' %>
+  <div class="input-field col s12 l7">
+    <%= f.label :alias, value: 'Surnom' %>
+    <%= f.text_field :alias %>
   </div>
   
-  <br/>
-  <br/>
-  <br/>
+  <div class="input-field col s12 l7" hidden>
+    <%= f.label :password_digest, value: 'Mot de passe' %>
+    <%= f.password_field :password_digest, value: 'test' %>
+  </div>
 
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= button_tag 'Valider', class: 'mdl-button mdl-js-button mdl-button--raised' %>
+  <div class="input-field col s12 l7">
+    <%= f.label :initAmount, value: 'Compte de départ', 'data-error': 'Ce n\'est pas un nombre valide' %>
+    <%= f.number_field :initAmount, pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
+  </div>
+
+  <div class="input-field col s12 l7">
+    <%= f.label :email, value: 'Email', 'data-error': 'Ce n\'est pas une adresse email' %>
+    <%= f.email_field :email %>
+  </div>
+  
+  <div class="col s12 l7">
+    <br/>
+    <br/>  
+    <br/>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Valider
+      <i class="material-icons right">send</i>
+    </button>
   </div>
 <% end %>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+  });
+</script>

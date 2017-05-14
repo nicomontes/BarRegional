@@ -1,8 +1,7 @@
 <% provide(:title, "BarCVVR Opération de "+User.find(@operation.user_id).firstName) %>
 
-<p id="notice"><%= notice %></p>
-
-<table class="mdl-data-table mdl-js-data-table" id="infoTable">
+<div class="row">
+<table class="input-field col s12" id="infoTable">
   <thead>
     <tr>
       <th>Date</th>
@@ -18,3 +17,10 @@
     </tr>
   </tbody>
 </table>
+</div>
+
+<script>
+  <% if notice %>
+  Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
+  <% end %>
+</script>

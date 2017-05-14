@@ -2,87 +2,86 @@
 
 <h3>Modification du fût</h3>
 
+<br>
+<br>
+
+<div class="row">
 <%= form_for(@keg) do |f| %>
   <% if @keg.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@keg.errors.count, "error") %> prohibited this keg from being saved:</h2>
-
-      <ul>
-      <% @keg.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="row">
+    <div class="col s12 l7">
+      <div class="card red darken-4">
+        <div class="card-content white-text">
+          <span class="card-title"><%= pluralize(@keg.errors.count, "error") %> prohibited this user from being saved:</span>
+          <ul>
+          <% @keg.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
   <% end %>
     
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-    <input class="mdl-textfield__input" id="post_drink" name="post[drink]" value="<%= Drink.find(@keg.drink_id).name %>" type="text" readonly tabIndex="-1" data-val=""/>
-      <label class="mdl-textfield__label" for="post_drink">Boisson</label>
-      <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="post_drink">        
-        <% Drink.all.collect.each do |drink| %>
-          <li class="mdl-menu__item" data-val ="<%= drink.id %>"><%= drink.name %></li>
-        <% end %>
-      </ul>
+  
+  <div class="input-field col s12 l7">
+    <select id="post_drink" name="post[drink]" value="<%= Drink.find(@keg.drink_id).name %>">
+      <% Drink.all.collect.each do |drink| %>
+        <option value="<%= drink.id %>"><%= drink.name %></option>
+      <% end %>
+    </select>
+    <label>Boisson</label>
   </div>
   
-  <br/>
+  <div class="input-field col s12 l7">
+    <%= f.label :capacity, value: 'Capacité du fût', 'data-error': 'Ce n\'est pas un nombre valide' %>
+    <%= f.number_field :capacity, pattern: '[0-9]*(\.[0-9]+)?', step: '0.01' %>
+  </div>
+  
+  <div class="input-field col s12 l7">
+    <%= f.label :price, value: 'Prix', 'data-error': 'Ce n\'est pas un nombre valide' %>
+    <%= f.text_field :price, pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
+  </div>
+  
+  <div class="input-field col s12 l7">
+    <%= f.label :startDate, value: 'Date de début du fût :' %>
+  </div>
+  <div class="input-field col s12 l7">
+    <%= f.datetime_local_field :startDate, :include_seconds => true, class: 'datepicker'%>
+  </div>
+  
+  <div class="input-field col s12 l7">
+    <%= f.label :endDate, value: 'Date de fin du fût :' %>
+  </div>
+  <div class="input-field col s12 l7">
+    <%= f.datetime_local_field :endDate, :include_seconds => true, class: 'datepicker'%>
+  </div>
+  
+  <div class="input-field col s12 l7">
+    <%= f.label :admin_password, value: 'Mot de passe Administrateur' %>
+    <%= password_field_tag :admin_password, nil %>
+  </div>
 
-  <div class="field" hidden>
-    <%= f.label :startDate %>
-    <%= f.datetime_select :startDate, :include_seconds => true%>
+  <div class="col s12">
+    <br>
+      <%= check_box("kg", "delete", { class: "" }, "yes", "no") %>
+      <label for="kg_delete">Supprimer le fût</label>
   </div>
-  
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :capacity, class: 'mdl-textfield__label', value: 'Capacité du fût en litre' %>
-    <%= f.number_field :capacity, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.1' %>
-    <span class="mdl-textfield__error">Ce n'est pas un nombre valide</span>
-  </div>
-    
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :price, class: 'mdl-textfield__label', value: 'Prix du fût' %>
-    <%= f.number_field :price, class: 'mdl-textfield__input', pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.1' %>
-    <span class="mdl-textfield__error">Ce n'est pas un nombre valide</span>
-  </div>
-  
-  <br/>
-  
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :startDate, class: 'mdl-textfield__label', value: 'Date de début du fût :' %>
-  </div>
-  
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.datetime_local_field :startDate, :include_seconds => true%>
-  </div>
-  
-  <br/>
-  
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.label :endDate, class: 'mdl-textfield__label', value: 'Date de fin du fût :' %>
-  </div>
-  
-  <div class="mdl-textfield mdl-js-textfield">
-    <%= f.datetime_local_field :endDate, :include_seconds => true%>
-  </div>
-  
-  <br/>
 
-<div class="mdl-textfield mdl-js-textfield">
-  <%= f.label :admin_password, class: 'mdl-textfield__label', value: 'Mot de passe Administrateur' %>
-  <%= password_field_tag :admin_password, nil, class: 'mdl-textfield__input' %>
-</div>
-
-<br/>
-
-<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="kg_delete">
-  <%= check_box("kg", "delete", { class: "mdl-checkbox__input" }, "yes", "no") %>
-  <span class="mdl-checkbox__label">Supprimer le fût</span>
-</label>
-
-<br/>
-<br/>  
-<br/>
-
-<div class="mdl-textfield mdl-js-textfield">
-  <%= button_tag 'Valider', class: 'mdl-button mdl-js-button mdl-button--raised' %>
-</div>
+  <div class="col s12 l7">
+    <br/>
+    <br/>  
+    <br/>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Valider
+      <i class="material-icons right">send</i>
+    </button>
+  </div>
 <% end %>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+  });
+</script>

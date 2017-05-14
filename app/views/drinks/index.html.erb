@@ -1,24 +1,12 @@
 <% provide(:title, "BarCVVR Boissons") %>
 
-<% if notice %>
-<div id="toast" class="mdl-js-snackbar mdl-snackbar mdl-snackbar--active" data-upgraded=",MaterialSnackbar" aria-hidden="false">
-  <div class="mdl-snackbar__text">
-    <%= notice %>
-  </div>
-  <button class="mdl-snackbar__action" type="button" aria-hidden="true"></button>
-</div>
-<% end %>
-
 <h3>Breuvages</h3>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.scrollTo(0,document.body.scrollHeight);">
-  <i class="material-icons">arrow_downward</i>
-</button>
-
 <br/>
 <br/>
 
-<table class="mdl-data-table mdl-js-data-table" id="Table">
+<div class="row">
+<table class="col s12 l7 centered highlight striped" id="Table">
   <thead>
     <tr>
       <th>Nom</th>
@@ -35,30 +23,28 @@
         <td><%= drink.drink_type %></td>
         <td><%= drink.price %></td>
         <td>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/drinks/<%=drink.id%>/edit'">
-            <i class="large material-icons">edit</i>
+          <button class="btn-floating btn-larg blue" onclick="window.location.href='/drinks/<%=drink.id%>/edit'">
+            <i class="material-icons">edit</i>
           </button>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+ </div>
 
 <br>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/drinks/new'">
+<button class="btn-floating btn-large waves-effect waves-light light-green" onclick="window.location.href='/drinks/new'">
   <i class="material-icons">add</i>
 </button>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/'">
+<button class="btn-floating btn-large waves-effect waves-light" onclick="window.location.href='/'">
   <i class="material-icons">home</i>
 </button>
 
 <script>
-var hide5000;
-hide5000 = setTimeout(hide, 5000 );
-
-function hide () {
-  document.getElementById("toast").setAttribute("hidden", true);
-}
+  <% if notice %>
+  Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
+  <% end %>
 </script>

@@ -1,26 +1,23 @@
 <% provide(:title, "BarCVVR") %>
 
-<% if notice %>
-<div id="toast" class="mdl-js-snackbar mdl-snackbar mdl-snackbar--active" data-upgraded=",MaterialSnackbar" aria-hidden="false">
-  <div class="mdl-snackbar__text">
-    <%= notice %>
+<div class="row">
+    <div class="col s7">
+    <%= image_tag "Header.svg" %>
+    </div>
   </div>
-  <button class="mdl-snackbar__action" type="button" aria-hidden="true"></button>
+
+<div class="row">
+  <div class="input-field col s6">
+    <input placeholder="Chercher ..." type="text" onkeyup="Search()" id="Search">
+  </div>
+  <div class="input-field col s6">
+    <button class="btn-floating btn-large waves-effect waves-light" onclick="window.scrollTo(0,document.body.scrollHeight);">
+      <i class="material-icons">arrow_downward</i>
+    </button>
+  </div>
 </div>
-<% end %>
 
-<h1>Bar Vélivole</h1>
-
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-  <input class="mdl-textfield__input" type="text" onkeyup="Search()" id="Search">
-  <label class="mdl-textfield__label" for="Search">Chercher ...</label>
-</div>
-
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.scrollTo(0,document.body.scrollHeight);">
-  <i class="material-icons">arrow_downward</i>
-</button>
-
-<table style="width:100%;" class="mdl-data-table mdl-js-data-table" id="Table">
+<table class="col s12 centered highlight striped" id="Table">
   <thead>
     <tr>
       <th>#</th>
@@ -42,18 +39,18 @@
         <td><%= @users.find(key).alias %></td>
         <td><%= @operationTotal[key] %></td>
         <td>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/users/<%=@users.find(key).id%>'">
-            <i class="large material-icons">zoom_in</i>
+          <button class="btn-floating waves-effect green" onclick="window.location.href='/users/<%=@users.find(key).id%>'">
+            <i class="material-icons">zoom_in</i>
           </button>
         </td>
         <td>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/operations/new?userid=<%=@users.find(key).id%>'">
-            <%= image_tag "beer_glass.svg", height: "30", width: "30" %>
+          <button class="btn-floating waves-effect amber" onclick="window.location.href='/operations/new?userid=<%=@users.find(key).id%>'">
+            <%= image_tag "beer_glass.svg", height: "30", width: "30", style: 'margin-top: 5px' %>
           </button>
         </td>
         <td>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/operations/add?userid=<%=@users.find(key).id%>'">
-            <i class="large material-icons">euro_symbol</i>
+          <button class="btn-floating waves-effect light-blue" onclick="window.location.href='/operations/add?userid=<%=@users.find(key).id%>'">
+            <i class="material-icons">euro_symbol</i>
           </button>
         </td>
       </tr>
@@ -64,21 +61,21 @@
 
 <br>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/users/new'">
+<button class="btn-floating btn-large waves-effect waves-light green" onclick="window.location.href='/users/new'">
   <i class="material-icons">add</i>
 </button>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/operations'">
+<button class="btn-floating btn-large waves-effect waves-light" onclick="window.location.href='/operations'">
   <i class="material-icons">cached</i>
 </button>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/drinks'">
-  <%= image_tag "beer_glass.svg", height: "30", width: "30" %>
+<button class="btn-floating btn-large waves-effect waves-light amber" onclick="window.location.href='/drinks'">
+  <%= image_tag "beer_glass.svg", height: "30", width: "30", style: 'margin-top: 12px' %>
   <i class="material-icons"     style="margin-left:10px; margin-top:10px;">add</i>
 </button>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/kegs'">
-  <%= image_tag "beer_keg.svg", height: "30", width: "30" %>
+<button class="btn-floating btn-large waves-effect waves-light grey" onclick="window.location.href='/kegs'">
+  <%= image_tag "beer_keg.svg", height: "30", width: "30", style: 'margin-top: 12px' %>
   <i class="material-icons" style="margin-left:10px; margin-top:10px;">add</i>
 </button>
 
@@ -107,21 +104,22 @@
   percent = 100-(100/(keg.capacity/volGlass)*opNum)
 %>
 
-<span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
-    <%= image_tag "beer_keg.svg", style: "height: 25px !important; width: 25px !important", class:  "mdl-chip__contact"%>
-    <span class="mdl-chip__text"><%= keg.name %> <%= Drink.find(keg.drink_id).name %> : <%= opNum.to_i %>
-    </span>
-    <a href="/kegs/<%= keg.id %>/renew/" class="mdl-chip__action" onclick="if (confirm('Voulez-vous changer le fût de <%= Drink.find(keg.drink_id).name %> ?') == true) {} else {return false;}"><i class="material-icons">cached</i></a>
-    <div id="p1" style="width: 100%" class="mdl-progress mdl-js-progress" value="<%= opNum %>">
-      <div class="progressbar bar bar1" style="width: <%= percent %>%;"></div>
-      <div class="bufferbar bar bar2" style="width: 100%;"></div>
-      <div class="auxbar bar bar3" style="width: 0%;"></div>
-    </div>
-</span>
+
+<div class="chip">
+   <%= image_tag "beer_keg.svg", style: "height: 25px !important; width: 25px !important; margin-top: 2px"%>
+   <span style='position: relative; bottom: 3px'> <%= keg.name %> <%= Drink.find(keg.drink_id).name %> : <%= opNum.to_i %></span>
+   <a href="/kegs/<%= keg.id %>/renew/" onclick="if (confirm('Voulez-vous changer le fût de <%= Drink.find(keg.drink_id).name %> ?') == true) {} else {return false;}"><i class="material-icons" style='position: relative; top: 3px'>cached</i></a>
+   <div id="p1" style="width: 100%" class="progress" value="<%= opNum %>">
+     <div class="determinate" style="width: <%= percent %>%;"></div>
+   </div>
+</div>
 
 <% end %>
 
 <script>
+<% if notice %>
+Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
+<% end %>
 
 if (document.getElementById("Search").value.toUpperCase() != "") {
   Search();

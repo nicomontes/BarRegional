@@ -1,4 +1,5 @@
 class Drink < ApplicationRecord
+  has_many :operations
   has_many :kegs
   validates :name,  presence: true
   validates :drink_type, presence: true

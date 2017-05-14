@@ -1,52 +1,60 @@
 <% provide(:title, "BarCVVR Utilisateur "+@user.firstName) %>
 
-<p id="notice"><%= notice %></p>
-
 <h3><b><%= @user.firstName %> <%= @user.lastName %></b></h3>
 
 <h6>
-  <%= @user.alias %></td> : <%= @user.amount %>€, <%= @user.email %>
+  <%= @user.firstName %></td> : <%= @user.amount %>€, <%= @user.email %>
 </h6>
 
+<div class="row">
+  <div class="input-field col s6">
+    
+    <button class="btn-floating waves-effect light-blue" onclick="window.location.href='/operations/add?userid=<%=@user.id%>'">
+      <i class="material-icons">euro_symbol</i>
+    </button>
 
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="window.location.href='/operations/add?userid=<%=@user.id%>'">
-Renflouer
-</button>
+    <button class="btn-floating waves-effect light-blue" onclick="window.location.href='/users/<%=@user.id%>/edit'">
+      <i class="material-icons">edit</i>
+    </button>
 
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="window.location.href='/users/<%=@user.id%>/edit'">
-Edition
-</button>
+    <svg width="0px" id="visualisation"></svg>
 
-<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" onclick="window.location.href='/users/'">
-Liste
-</button>
+    <h5> Les 3 dernières opérations : </h5>
+    <% i = 0
+    @operations.first(3).each do |operation| %>
+      <h6 id=h6_<%= i %> style="margin-left: 30px;"><%= operation.date %> : <%= operation.sum %>€</h6>
+    <% i = i + 1 
+    end %>
 
-<svg width="0px" id="visualisation"></svg>
+    <table id="opTable" style="display:none">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Somme</th>
+        </tr>
+      </thead>
 
-<h5> Les 3 dernières opérations : </h5>
-<% @operations.first(3).each do |operation| %>
-  <h6 style="margin-left: 30px;"><%= operation.date %> : <%= operation.sum %>€</h6>
-<% end %>
-
-<table id="opTable" style="display:none">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Somme</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @operations.each do |operation| %>
-      <tr>
-        <td><%= operation.date %></td>
-        <td><%= operation.sum %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @operations.each do |operation| %>
+          <tr>
+            <td><%= operation.date %></td>
+            <td><%= operation.sum %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <script>
+<% if notice %>
+Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
+<% end %>
+
+for (i = 0; i < 3; i++) {
+  date = new Date(/^([0-9\-\s\:]+UTC)/.exec(document.getElementById("h6_"+i).innerHTML)[0]);
+  document.getElementById("h6_"+i).innerHTML = date.toLocaleString() + /\s\:\s.*$/.exec(document.getElementById("h6_"+i).innerHTML)[0];
+}
 compte = <%= @user.amount %>
 data = new Array();
 table = document.getElementById("opTable");

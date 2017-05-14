@@ -1,25 +1,17 @@
 <% provide(:title, "BarCVVR Fûts") %>
 
-
-<% if notice %>
-<div id="toast" class="mdl-js-snackbar mdl-snackbar mdl-snackbar--active" data-upgraded=",MaterialSnackbar" aria-hidden="false">
-  <div class="mdl-snackbar__text">
-    <%= notice %>
-  </div>
-  <button class="mdl-snackbar__action" type="button" aria-hidden="true"></button>
-</div>
-<% end %>
-
 <h3>Fût</h3>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.scrollTo(0,document.body.scrollHeight);">
-  <i class="material-icons">arrow_downward</i>
-</button>
+<div class="input-field col s6">
+  <button class="btn-floating btn-large waves-effect waves-light" onclick="window.scrollTo(0,document.body.scrollHeight);">
+    <i class="material-icons">arrow_downward</i>
+  </button>
+</div>
 
 <br/>
 <br/>
 
-<table class="mdl-data-table mdl-js-data-table" id="Table">
+<table class="col s12 l7 centered highlight striped" id="Table">
   <thead>
     <tr>
       <th>Boisson</th>
@@ -27,6 +19,7 @@
       <th>Enddate</th>
       <th>Capacité</th>
       <th>Prix</th>
+      <th>Rentabilité</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -39,14 +32,15 @@
         <td><%= keg.endDate %></td>
         <td><%= keg.capacity %> l</td>
         <td><%= keg.price %> €</td>
+        <td><%= @profit[keg.id] %></td>
         <td>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/kegs/<%=keg.id%>'">
-            <i class="large material-icons">zoom_in</i>
+          <button class="btn-floating btn-larg green" onclick="window.location.href='/kegs/<%=keg.id%>'">
+            <i class="material-icons">zoom_in</i>
           </button>
         </td>
         <td>
-          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect" onclick="window.location.href='/kegs/<%=keg.id%>/edit'">
-            <i class="large material-icons">edit</i>
+          <button class="btn-floating btn-larg blue" onclick="window.location.href='/kegs/<%=keg.id%>/edit'">
+            <i class="material-icons">edit</i>
           </button>
         </td>
       </tr>
@@ -56,19 +50,27 @@
 
 <br/>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/kegs/new'">
+<button class="btn-floating btn-large waves-effect waves-light light-green" onclick="window.location.href='/kegs/new'">
   <i class="material-icons">add</i>
 </button>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" onclick="window.location.href='/'">
+<button class="btn-floating btn-large waves-effect waves-light" onclick="window.location.href='/'">
   <i class="material-icons">home</i>
 </button>
 
 <script>
-var hide5000;
-hide5000 = setTimeout(hide, 5000 );
+<% if notice %>
+Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
+<% end %>
 
-function hide () {
-  document.getElementById("toast").setAttribute("hidden", true);
+table = document.getElementById("Table");
+tr = table.getElementsByTagName("tr");
+for (i = tr.length -1; tr[i]; i--) {
+  td = tr[i].getElementsByTagName("td")[1];
+  date = new Date(/^([0-9\-\s\:]+UTC)/.exec(td.innerHTML)[0]);
+  td.innerHTML = date.toLocaleString();
+  td = tr[i].getElementsByTagName("td")[2];
+  date = new Date(/^([0-9\-\s\:]+UTC)/.exec(td.innerHTML)[0]);
+  td.innerHTML = date.toLocaleString();
 }
 </script>
