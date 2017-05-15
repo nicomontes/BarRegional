@@ -27,9 +27,13 @@
   
   <div class="input-field col s12 l7">
     <select id="post_drink" name="post[drink]" value="<%= Drink.find(@keg.drink_id).name %>">
-      <% Drink.all.collect.each do |drink| %>
-        <option value="<%= drink.id %>"><%= drink.name %></option>
-      <% end %>
+      <% Drink.all.collect.each do |drink|
+        if drink.id == @keg.drink_id %>
+          <option value="<%= drink.id %>" selected><%= drink.name %></option>
+        <% else %>
+          <option value="<%= drink.id %>"><%= drink.name %></option>
+        <% end
+     end %>
     </select>
     <label>Boisson</label>
   </div>

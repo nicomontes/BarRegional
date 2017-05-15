@@ -11,7 +11,7 @@
     <input placeholder="Chercher ..." type="text" onkeyup="Search()" id="Search">
   </div>
   <div class="input-field col s6">
-    <button class="btn-floating btn-large waves-effect waves-light" onclick="window.scrollTo(0,document.body.scrollHeight);">
+    <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="right" data-delay="50" data-tooltip="Descendre" onclick="window.scrollTo(0,document.body.scrollHeight);">
       <i class="material-icons">arrow_downward</i>
     </button>
   </div>
@@ -39,17 +39,17 @@
         <td><%= @users.find(key).alias %></td>
         <td><%= @operationTotal[key] %></td>
         <td>
-          <button class="btn-floating waves-effect green" onclick="window.location.href='/users/<%=@users.find(key).id%>'">
+          <button class="btn-floating waves-effect green tooltipped" data-position="bottom" data-delay="1000" data-tooltip="Infos de <%= @users.find(key).firstName %>" onclick="window.location.href='/users/<%=@users.find(key).id%>'">
             <i class="material-icons">zoom_in</i>
           </button>
         </td>
         <td>
-          <button class="btn-floating waves-effect amber" onclick="window.location.href='/operations/new?userid=<%=@users.find(key).id%>'">
+          <button class="btn-floating waves-effect amber tooltipped" data-position="bottom" data-delay="1000" data-tooltip="<%= @users.find(key).firstName %> Paye sa bière" onclick="window.location.href='/operations/new?userid=<%=@users.find(key).id%>'">
             <%= image_tag "beer_glass.svg", height: "30", width: "30", style: 'margin-top: 5px' %>
           </button>
         </td>
         <td>
-          <button class="btn-floating waves-effect light-blue" onclick="window.location.href='/operations/add?userid=<%=@users.find(key).id%>'">
+          <button class="btn-floating waves-effect light-blue tooltipped" data-position="bottom" data-delay="1000" data-tooltip="Renflouer <%= @users.find(key).firstName %>" onclick="window.location.href='/operations/add?userid=<%=@users.find(key).id%>'">
             <i class="material-icons">euro_symbol</i>
           </button>
         </td>
@@ -61,20 +61,20 @@
 
 <br>
 
-<button class="btn-floating btn-large waves-effect waves-light green" onclick="window.location.href='/users/new'">
+<button class="btn-floating btn-large waves-effect waves-light green tooltipped" data-position="bottom" data-delay="1000" data-tooltip="Ajouter un Vélivole" onclick="window.location.href='/users/new'">
   <i class="material-icons">add</i>
 </button>
 
-<button class="btn-floating btn-large waves-effect waves-light" onclick="window.location.href='/operations'">
+<button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="bottom" data-delay="1000" data-tooltip="Transactions" onclick="window.location.href='/operations'">
   <i class="material-icons">cached</i>
 </button>
 
-<button class="btn-floating btn-large waves-effect waves-light amber" onclick="window.location.href='/drinks'">
+<button class="btn-floating btn-large waves-effect waves-light amber tooltipped" data-position="bottom" data-delay="1000" data-tooltip="Boissons" onclick="window.location.href='/drinks'">
   <%= image_tag "beer_glass.svg", height: "30", width: "30", style: 'margin-top: 12px' %>
   <i class="material-icons"     style="margin-left:10px; margin-top:10px;">add</i>
 </button>
 
-<button class="btn-floating btn-large waves-effect waves-light grey" onclick="window.location.href='/kegs'">
+<button class="btn-floating btn-large waves-effect waves-light grey tooltipped" data-position="bottom" data-delay="1000" data-tooltip="Fûts" onclick="window.location.href='/kegs'">
   <%= image_tag "beer_keg.svg", height: "30", width: "30", style: 'margin-top: 12px' %>
   <i class="material-icons" style="margin-left:10px; margin-top:10px;">add</i>
 </button>
@@ -108,10 +108,25 @@
 <div class="chip">
    <%= image_tag "beer_keg.svg", style: "height: 25px !important; width: 25px !important; margin-top: 2px"%>
    <span style='position: relative; bottom: 3px'> <%= keg.name %> <%= Drink.find(keg.drink_id).name %> : <%= opNum.to_i %></span>
-   <a href="/kegs/<%= keg.id %>/renew/" onclick="if (confirm('Voulez-vous changer le fût de <%= Drink.find(keg.drink_id).name %> ?') == true) {} else {return false;}"><i class="material-icons" style='position: relative; top: 3px'>cached</i></a>
+   <a href="#modal_<%= keg.id %>"><i class="material-icons tooltipped" data-position="top" data-delay="1000" data-tooltip="Renouveler" style='position: relative; top: 3px'>cached</i></a>
    <div id="p1" style="width: 100%" class="progress" value="<%= opNum %>">
      <div class="determinate" style="width: <%= percent %>%;"></div>
    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="modal_<%= keg.id %>" class="modal">
+  <div class="modal-content">
+    <h5>Vous avez tout bu !<br>
+    Le renouvellement du fût est donc indispenssable !</h5>
+    <p>La nouvelle recharge est bien celle ci :<br>
+      <%= Drink.find(keg.drink_id).name %> de <%= keg.capacity %> au prix de <%= keg.price %>€ ?</p>
+    <p>Si ce n'est pas le cas, clôturer ce fût en lui ajoutant une date de fin puis en créer un autre.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Abandonner</a>
+    <a href="/kegs/<%= keg.id %>/renew/" class="modal-action modal-close waves-effect waves-green btn-flat">Valider</a>
+  </div>
 </div>
 
 <% end %>
@@ -120,6 +135,10 @@
 <% if notice %>
 Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
 <% end %>
+$(document).ready(function(){
+   // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+   $('.modal').modal();
+});
 
 if (document.getElementById("Search").value.toUpperCase() != "") {
   Search();
