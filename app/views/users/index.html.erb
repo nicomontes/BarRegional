@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<table class="col s12 centered highlight striped" id="Table">
+<table class="col s12 centered highlight striped tablesorter" id="Table">
   <thead>
     <tr>
       <th>#</th>
@@ -160,6 +160,7 @@ Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
 $(document).ready(function(){
    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
    $('.modal').modal();
+   $("#Table").tablesorter();
 });
 
 if (document.getElementById("Search").value.toUpperCase() != "") {
