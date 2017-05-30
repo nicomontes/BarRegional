@@ -7,6 +7,7 @@
 
 <div class="row">
 <%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
   <div class="row">
     <div class="col s12 l7">
       <div class="card red darken-4">
@@ -24,32 +25,32 @@
   <% end %>
 
   <div class="input-field col s12 l7">
-    <%= f.label :firstName, value: 'Prénom' %>
+    <%= f.label :firstName, 'Prénom' %>
     <%= f.text_field :firstName %>
   </div>
   
   <div class="input-field col s12 l7">
-    <%= f.label :lastName, value: 'Nom' %>
+    <%= f.label :lastName, 'Nom' %>
     <%= f.text_field :lastName %>
   </div>
 
   <div class="input-field col s12 l7">
-    <%= f.label :alias, value: 'Surnom' %>
+    <%= f.label :alias, 'Surnom' %>
     <%= f.text_field :alias %>
   </div>
   
   <div class="input-field col s12 l7" hidden>
-    <%= f.label :password_digest, value: 'Mot de passe' %>
+    <%= f.label :password_digest, 'Mot de passe' %>
     <%= f.password_field :password_digest, value: 'test' %>
   </div>
     
   <div class="input-field col s12 l7">
-    <%= f.label :email, value: 'Email', 'data-error': 'Ce n\'est pas une adresse email' %>
+    <%= f.label :email, 'Email', 'data-error': 'Ce n\'est pas une adresse email' %>
     <%= f.email_field :email %>
   </div>
   
   <div class="input-field col s12 l7">
-    <%= f.label :admin_password, value: 'Mot de passe Administrateur' %>
+    <%= f.label :admin_password, 'Mot de passe Administrateur' %>
     <%= password_field_tag :admin_password, nil %>
   </div>
 
