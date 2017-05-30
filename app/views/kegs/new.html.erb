@@ -41,17 +41,17 @@
   </div>
   
   <div class="input-field col s12 l7">
-    <%= f.label :capacity, value: 'Capacité du fût', 'data-error': 'Ce n\'est pas un nombre valide' %>
+    <%= f.label :capacity, 'Capacité du fût', 'data-error': 'Ce n\'est pas un nombre valide' %>
     <%= f.number_field :capacity, pattern: '[0-9]*(\.[0-9]+)?', step: '0.01' %>
   </div>
   
   <div class="input-field col s12 l7">
-    <%= f.label :price, value: 'Prix', 'data-error': 'Ce n\'est pas un nombre valide' %>
+    <%= f.label :price, 'Prix', 'data-error': 'Ce n\'est pas un nombre valide' %>
     <%= f.text_field :price, pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
   </div>
   
   <div class="input-field col s12 l7">
-    <%= f.label :admin_password, value: 'Mot de passe Administrateur' %>
+    <%= f.label :admin_password, 'Mot de passe Administrateur' %>
     <%= password_field_tag :admin_password, nil %>
   </div>
 
