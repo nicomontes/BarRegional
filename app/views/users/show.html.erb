@@ -19,9 +19,9 @@
 
     <svg width="0px" id="visualisation"></svg>
 
-    <h5> Les 3 dernières opérations : </h5>
+    <h5> Les 5 dernières opérations : </h5>
     <% i = 0
-    @operations.first(3).each do |operation| %>
+    @operations.first(5).each do |operation| %>
       <h6 id=h6_<%= i %> style="margin-left: 30px;"><%= operation.date %> : <%= operation.sum %>€</h6>
     <% i = i + 1 
     end %>
