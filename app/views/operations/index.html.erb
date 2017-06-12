@@ -7,8 +7,8 @@
     <input placeholder="Chercher ..." type="text" onkeyup="Search()" id="Search">
   </div>
   <div class="input-field col s6">
-    <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="right" data-delay="50" data-tooltip="Descendre" onclick="window.scrollTo(0,document.body.scrollHeight);">
-      <i class="material-icons">arrow_downward</i>
+    <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="right" data-delay="1000" data-tooltip="Liste des Vélivoles" onclick="window.location.href='/'">
+      <i class="material-icons">home</i>
     </button>
   </div>
 </div>
@@ -53,12 +53,6 @@
 
 </div>
 
-<br>
-
-<button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="right" data-delay="1000" data-tooltip="Liste des Vélivoles" onclick="window.location.href='/'">
-  <i class="material-icons">home</i>
-</button>
-
 <script>
 <% if notice %>
 Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
@@ -97,6 +91,22 @@ function Search() {
                 tr[i].style.display = "";
               } else {
                 tr[i].style.display = "none";
+                td4 = tr[i].getElementsByTagName("td")[4];
+                if (td4) {
+                  if (td4.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                    td5 = tr[i].getElementsByTagName("td")[5];
+                    if (td5) {
+                      if (td5.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                      } else {
+                        tr[i].style.display = "none";
+                      }
+                    }
+                  }
+                }
               }
             }
           }
