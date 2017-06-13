@@ -3,8 +3,8 @@
 <h3>Fût</h3>
 
 <div class="input-field col s6">
-  <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="right" data-delay="50" data-tooltip="Descendre" onclick="window.scrollTo(0,document.body.scrollHeight);">
-    <i class="material-icons">arrow_downward</i>
+  <button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="right" data-delay="1000" data-tooltip="Liste des Vélivoles" onclick="window.location.href='/'">
+    <i class="material-icons">home</i>
   </button>
 </div>
 
@@ -30,9 +30,9 @@
         <td><%= Drink.find(keg.drink_id).name %> </td>
         <td><%= keg.startDate %></td>
         <td><%= keg.endDate %></td>
-        <td><%= keg.capacity %> l</td>
-        <td><%= keg.price %> €</td>
-        <td><%= @profit[keg.id] %></td>
+        <td><%= number_with_precision(keg.capacity, precision: 2).sub(/\.00$/,'') %>l</td>
+        <td><%= number_with_precision(keg.price, precision: 2).sub(/\.00$/,'') %>€</td>
+        <td><%= number_with_precision(@profit[keg.id], precision: 2).sub(/\.00$/,'') %>€</td>
         <td>
           <button class="btn-floating btn-larg green tooltipped" data-position="bottom" data-delay="1000" data-tooltip="Infos" onclick="window.location.href='/kegs/<%=keg.id%>'">
             <i class="material-icons">zoom_in</i>
@@ -48,14 +48,14 @@
   </tbody>
 </table>
 
+<div class="row">
+<%= will_paginate @kegs, :previous_label => '<i class="material-icons">chevron_left</i>', :next_label => '<i class="material-icons">chevron_right</i>' %>
+</div>
+
 <br/>
 
 <button class="btn-floating btn-large waves-effect waves-light light-green tooltipped" data-position="top" data-delay="1000" data-tooltip="Ajout d'un fût" onclick="window.location.href='/kegs/new'">
   <i class="material-icons">add</i>
-</button>
-
-<button class="btn-floating btn-large waves-effect waves-light tooltipped" data-position="right" data-delay="1000" data-tooltip="Liste des Vélivoles" onclick="window.location.href='/'">
-  <i class="material-icons">home</i>
 </button>
 
 <script>

@@ -4,7 +4,8 @@ class OperationsController < ApplicationController
   # GET /operations
   # GET /operations.json
   def index
-    @operations = Operation.all.order("date DESC")
+    #Operation.paginate(page: params[:page])
+    @operations = Operation.all.order("date DESC").paginate(page: params[:page], :per_page => 10)
   end
 
   # GET /operations/1

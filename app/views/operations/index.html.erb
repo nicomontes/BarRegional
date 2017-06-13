@@ -32,13 +32,13 @@
     <% @operations.each do |operation| %>
       <tr>
         <td><%= operation.date %></td>
-        <td><%= operation.sum %></td>
+        <td><%= number_with_precision(operation.sum, precision: 2).sub(/\.00$/,'') %></td>
         <td>
           <% if operation.drink_id %>
             <%= Drink.find(operation.drink_id).name %>
           <% end %>
         </td>
-        <td><%= operation.numberDrink %></td>
+        <td><%= number_with_precision(operation.numberDrink, precision: 0) %></td>
         <td><%= operation.comment %></td>
         <td><%= User.find(operation.user_id).firstName %> <%= User.find(operation.user_id).lastName %> <br/> <%= User.find(operation.user_id).alias %></td>
         <td>
@@ -53,6 +53,10 @@
 
 </div>
 
+<div class="row">
+<%= will_paginate @operations, :previous_label => '<i class="material-icons">chevron_left</i>', :next_label => '<i class="material-icons">chevron_right</i>' %>
+</div>
+
 <script>
 <% if notice %>
 Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
@@ -60,11 +64,13 @@ Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
 
 table = document.getElementById("Table");
 tr = table.getElementsByTagName("tr");
-for (i = tr.length -1; tr[i]; i--) {
+for (i = tr.length -1; i > 0; i--) {
   td = tr[i].getElementsByTagName("td")[0];
   date = new Date(/^([0-9\-\s\:]+UTC)/.exec(td.innerHTML)[0]);
   td.innerHTML = date.toLocaleString();
 }
+
+$('a[rel=\'prev\']').innerHTML = "<"
 
 function Search() {
   var input, filter, table, tr, td, i;

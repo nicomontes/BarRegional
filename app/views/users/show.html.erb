@@ -22,7 +22,7 @@
     <h5> Les 5 dernières opérations : </h5>
     <% i = 0
     @operations.first(5).each do |operation| %>
-      <h6 id=h6_<%= i %> style="margin-left: 30px;"><%= operation.date %> : <%= operation.sum %>€</h6>
+      <h6 id=h6_<%= i %> style="margin-left: 30px;"><%= operation.date %> : <%= number_with_precision(operation.sum, precision: 2).sub(/\.00$/,'') %>€</h6>
     <% i = i + 1 
     end %>
 

@@ -25,7 +25,7 @@
       <th>Prénom</th>
       <th>Surnom</th>
       <th>Compte</th>
-      <th colspan="3"> Total : <%= @totalAmount %> </th>
+      <th colspan="3"> Total : <%= number_with_precision(@totalAmount, precision: 2).sub(/\.00$/,'') %>€ </th>
     </tr>
   </thead>
 
@@ -59,7 +59,7 @@
           end
         end
         %>
-        <td class="<%= td_class %>"><%= @operationTotal[key] %>  <%= warning.html_safe %></td>
+        <td class="<%= td_class %>"><%= number_with_precision(@operationTotal[key], precision: 2).sub(/\.00$/,'') %>€  <%= warning.html_safe %></td>
         <td>
           <button class="btn-floating waves-effect green tooltipped" data-position="bottom" data-delay="1000" data-tooltip="Infos de <%= @users.find(key).firstName %>" onclick="window.location.href='/users/<%=@users.find(key).id%>'">
             <i class="material-icons">zoom_in</i>

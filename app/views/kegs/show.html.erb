@@ -18,10 +18,10 @@
         <td><%= Drink.find(@keg.drink_id).name %></td>
         <td><%= @keg.startDate %></td>
         <td><%= @keg.endDate %></td>
-        <td><%= @keg.capacity %> l</td>
-        <td><%= @keg.price %> €</td>
-        <td><%= @opNum %></td>
-        <td><%= @profit %></td>
+        <td><%= number_with_precision(@keg.capacity, precision: 2).sub(/\.00$/,'') %>l</td>
+        <td><%= number_with_precision(@keg.price, precision: 2).sub(/\.00$/,'') %>€</td>
+        <td><%= number_with_precision(@opNum, precision: 2).sub(/\.00$/,'') %></td>
+        <td><%= number_with_precision(@profit, precision: 2).sub(/\.00$/,'') %>€</td>
       </tr>
   </tbody>
 </table>

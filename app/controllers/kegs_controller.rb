@@ -4,7 +4,7 @@ class KegsController < ApplicationController
   # GET /kegs
   # GET /kegs.json
   def index
-    @kegs = Keg.all.order("created_at DESC")
+    @kegs = Keg.all.order("created_at DESC").paginate(page: params[:page], :per_page => 10)
     @profit = []
     @kegs.each do |keg|
       @profit[keg.id] = 0 - keg.price
