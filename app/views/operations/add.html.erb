@@ -48,7 +48,7 @@
     <br/>
     <br/>  
     <br/>
-    <button class="btn waves-effect waves-light" type="submit" name="action">Valider
+    <button class="btn waves-effect waves-light" onclick="this.disabled=true;validForms();" type="submit" name="action">Valider
       <i class="material-icons right">send</i>
     </button>
   </div>
@@ -59,4 +59,16 @@
 $(document).ready(function() {
     $('select').material_select();
   });
+  
+  function validForms() {
+    event.preventDefault();
+    forms = document.getElementsByClassName("new_operation");
+    for(var i=0; i<forms.length; i++) {
+      $.ajax({
+        type: 'POST',
+        url: "/operations",
+        data: decodeURI($("#"+forms[i].id).serialize()),
+      });
+    }
+  };
 </script>
