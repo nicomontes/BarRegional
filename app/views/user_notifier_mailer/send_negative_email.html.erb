@@ -137,7 +137,7 @@
       %>
       <%= content_tag(:p, op.date.to_s + " : " + op.comment.to_s + ", " + op.sum.to_s) %>
       <%
-    elsif op.drink_id > 0
+    elsif op.drink_id
     %>
       
       <%= content_tag(:p, op.date.to_s + " : " + Drink.find(op.drink_id).name + ", " + op.sum.to_s) %>
