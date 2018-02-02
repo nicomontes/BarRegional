@@ -21,23 +21,23 @@
 development:
   adapter: postgresql
   encoding: utf8
-  database: barCVVR_development
+  database: barRegional_development
   pool: 5
-  username: barCVVR
-  password:
+  username: barRegional
+  password: 
 
 test: &TEST
   adapter: postgresql
   encoding: utf8
-  database: barCVVR_test
+  database: barRegional_test
   pool: 5
-  username: barCVVR
+  username: barRegional
   password:
 
 production:
   adapter: postgresql
   encoding: utf8
-  database: barCVVR_production
+  database: barRegional_production
   pool: 5
-  username: barCVVR
+  username: barRegional
   password:

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161217100954) do
+ActiveRecord::Schema.define(version: 20180202101519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,14 @@ ActiveRecord::Schema.define(version: 20161217100954) do
   create_table "drinks", force: :cascade do |t|
     t.string   "name"
     t.string   "drink_type"
+    t.decimal  "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "foods", force: :cascade do |t|
+    t.string   "name"
+    t.string   "food_type"
     t.decimal  "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -43,6 +51,8 @@ ActiveRecord::Schema.define(version: 20161217100954) do
     t.decimal  "drink_id"
     t.decimal  "numberDrink"
     t.string   "comment"
+    t.decimal  "food_id"
+    t.decimal  "numberFood"
     t.index ["user_id"], name: "index_operations_on_user_id", using: :btree
   end
 
