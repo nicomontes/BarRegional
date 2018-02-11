@@ -1,12 +1,41 @@
+<style media="print">
+  
+  #visualisation {
+    display: none;
+  }
+  
+  .screen {
+    display: none;
+  }
+  
+</style>
+
+<style media="screen">
+  
+  .print {
+    display: none;
+  }
+  
+</style>
+
 <% provide(:title, "BarCVVR Utilisateur "+@user.firstName) %>
 
-<h3><b><%= @user.firstName %> <%= @user.lastName %></b></h3>
+<div class="row print">
+  <div class="row">
+    <div class="col s12 m10 l7">
+      <%= image_tag "Header.svg" %>
+    </div>
+  </div>
+  <h3><b>Facture de <%= @user.firstName %> <%= @user.lastName %></b></h3>
+</div>
 
-<h6>
-  <%= @user.firstName %></td> : <%= @user.amount %>€, <%= @user.email %>
+<h3 class="screen"><b><%= @user.firstName %> <%= @user.lastName %></b></h3>
+
+<h6 class="screen">
+  Total</td> : <%= @user.amount %>€, <%= @user.email %>
 </h6>
 
-<div class="row">
+<div class="row screen">
   <div class="input-field col s6">
     
     <button class="btn-floating waves-effect light-blue" onclick="window.location.href='/operations/add?userid=<%=@user.id%>'">
@@ -46,14 +75,69 @@
   </div>
 </div>
 
+<div class="row print">
+  <table class="col s12 centered highlight striped tablesorter" id="Table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Boisson</th>
+        <th>Nombre de Boisson</th>
+        <th>Plat</th>
+        <th>Nombre de Plat</th>
+        <th>Somme</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @operations.each do |operation| %>
+        <tr>
+          <td><%= operation.date %></td>
+          <td>
+            <% if operation.drink_id %>
+              <%= Drink.find(operation.drink_id).name %>
+            <% end %>
+          </td>
+          <td>
+            <% if operation.drink_id %>
+              <%= operation.numberDrink.to_i %> x <%= Drink.find(operation.drink_id).price %>€
+            <% end %>
+          </td>
+          <td>
+            <% if operation.food_id %>
+              <%= Food.find(operation.food_id).name %>
+            <% end %>
+          </td>
+          <td>
+            <% if operation.food_id %>
+              <%= operation.numberFood.to_i %> x <%= Food.find(operation.food_id).price %>€
+            <% end %>
+          </td>
+          <td><%= operation.sum %>€</td>
+        </tr>
+      <% end %>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th><h4>Total</h4></th>
+        <th><h4><%= @user.amount %>€</h4></th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 <script>
 <% if notice %>
 Materialize.toast('<%= notice %>', 4000) // 4000 is the duration of the toast
 <% end %>
 
 for (i = 0; i < 5; i++) {
-  date = new Date(/^([0-9\-\s\:]+UTC)/.exec(document.getElementById("h6_"+i).innerHTML)[0]);
-  document.getElementById("h6_"+i).innerHTML = date.toLocaleString() + /\s\:\s.*$/.exec(document.getElementById("h6_"+i).innerHTML)[0];
+  if (document.getElementById("h6_"+i)) {
+    date = new Date(/^([0-9\-\s\:]+UTC)/.exec(document.getElementById("h6_"+i).innerHTML)[0]);
+    document.getElementById("h6_"+i).innerHTML = date.toLocaleString() + /\s\:\s.*$/.exec(document.getElementById("h6_"+i).innerHTML)[0];
+  }
 }
 compte = <%= @user.amount %>
 data = new Array();

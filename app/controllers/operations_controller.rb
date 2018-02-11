@@ -33,14 +33,32 @@ class OperationsController < ApplicationController
   # POST /operations
   # POST /operations.json
   def create
-    if params[:post]
+    sum = 0
+    if params[:post][:drink]
       drink_id = params[:post][:drink]
       drink_price = Drink.find(drink_id).price.to_f
-      sum = 0 - operation_params[:numberDrink].to_f * drink_price
+      sum = sum - operation_params[:numberDrink].to_f * drink_price
+    end
+    
+    if params[:post][:food]
+      food_id = params[:post][:food]
+      food_price = Food.find(food_id).price.to_f
+      sum = sum - operation_params[:numberFood].to_f * food_price
+    end
+    
+    if operation_params[:numberDrink] == ""
+      drink_id = ""
+    end
+    if operation_params[:numberFood] == ""
+      food_id = ""
+    end
+    
+    if params[:post]
     else
       sum = operation_params[:sum].to_f
     end
-    @operation = Operation.new(operation_params.merge(sum: sum, drink_id: drink_id))
+    
+    @operation = Operation.new(operation_params.merge(sum: sum, drink_id: drink_id, food_id: food_id))
     respond_to do |format|
       if @operation.save
         amount = User.find(operation_params[:user_id]).amount
@@ -100,6 +118,6 @@ class OperationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def operation_params
-      params.require(:operation).permit(:date, :sum, :user_id, :numberDrink, :comment)
+      params.require(:operation).permit(:date, :sum, :user_id, :numberDrink, :numberFood, :comment)
     end
 end
