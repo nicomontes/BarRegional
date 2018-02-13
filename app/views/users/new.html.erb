@@ -9,7 +9,7 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
   <div class="row">
-    <div class="col s12 l7">
+    <div class="col s12">
       <div class="card red darken-4">
         <div class="card-content white-text">
           <span class="card-title"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</span>
@@ -24,37 +24,37 @@
   </div>
   <% end %>
 
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :firstName, 'Prénom' %>
     <%= f.text_field :firstName %>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :lastName, 'Nom' %>
     <%= f.text_field :lastName %>
   </div>
 
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :alias, 'Surnom' %>
     <%= f.text_field :alias %>
   </div>
   
-  <div class="input-field col s12 l7" hidden>
+  <div class="input-field col s12" hidden>
     <%= f.label :password_digest, 'Mot de passe' %>
     <%= f.password_field :password_digest, value: 'test' %>
   </div>
 
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :initAmount, 'Compte de départ', 'data-error': 'Ce n\'est pas un nombre valide' %>
     <%= f.number_field :initAmount, pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
   </div>
 
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :email, 'Email', 'data-error': 'Ce n\'est pas une adresse email' %>
     <%= f.email_field :email %>
   </div>
   
-  <div class="col s12 l7">
+  <div class="col s12">
     <br/>
     <br/>  
     <br/>

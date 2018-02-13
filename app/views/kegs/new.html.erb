@@ -9,7 +9,7 @@
 <%= form_for(@keg) do |f| %>
   <% if @keg.errors.any? %>
   <div class="row">
-    <div class="col s12 l7">
+    <div class="col s12">
       <div class="card red darken-4">
         <div class="card-content white-text">
           <span class="card-title"><%= pluralize(@keg.errors.count, "error") %> prohibited this user from being saved:</span>
@@ -24,7 +24,7 @@
   </div>
   <% end %>
     
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <select id="post_drink" name="post[drink]">
       <% Drink.all.collect.each do |drink| %>
         <option value="<%= drink.id %>"><%= drink.name %></option>
@@ -40,22 +40,22 @@
     <%= f.datetime_select :startDate, :include_seconds => true%>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :capacity, 'Capacité du fût', 'data-error': 'Ce n\'est pas un nombre valide' %>
     <%= f.number_field :capacity, pattern: '[0-9]*(\.[0-9]+)?', step: '0.01' %>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :price, 'Prix', 'data-error': 'Ce n\'est pas un nombre valide' %>
     <%= f.text_field :price, pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :admin_password, 'Mot de passe Administrateur' %>
     <%= password_field_tag :admin_password, nil %>
   </div>
 
-  <div class="col s12 l7">
+  <div class="col s12">
     <br/>
     <br/>  
     <br/>

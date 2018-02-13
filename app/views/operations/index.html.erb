@@ -111,12 +111,20 @@ function Search() {
                     tr[i].style.display = "";
                   } else {
                     tr[i].style.display = "none";
-                    td5 = tr[i].getElementsByTagName("td")[5];
-                    if (td5) {
-                      if (td5.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    td6 = tr[i].getElementsByTagName("td")[6];
+                    if (td6) {
+                      if (td6.innerHTML.toUpperCase().indexOf(filter) > -1) {
                         tr[i].style.display = "";
                       } else {
                         tr[i].style.display = "none";
+                        td7 = tr[i].getElementsByTagName("td")[7];
+                        if (td7) {
+                          if (td7.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                          } else {
+                            tr[i].style.display = "none";
+                          }
+                        }
                       }
                     }
                   }

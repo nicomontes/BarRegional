@@ -23,7 +23,7 @@ end %>
 <%= form_for(@operation) do |f| %>
   <% if @operation.errors.any? %>
   <div class="row">
-    <div class="col s12 l7">
+    <div class="col s12">
       <div class="card red darken-4">
         <div class="card-content white-text">
           <span class="card-title"><%= pluralize(@operation.errors.count, "error") %> prohibited this user from being saved:</span>
@@ -48,12 +48,12 @@ end %>
     <%= f.number_field :user_id %>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :sum, 'Somme', 'data-error': 'Ce n\'est pas un nombre valide' %>
     <%= f.number_field :sum, pattern: '-?[0-9]*(\.[0-9]+)?', step: '0.01' %>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s6">
     <select id="post_drink" name="post[drink]">
       <% Keg.where('endDate' => nil).collect.each do |keg| 
           if keg.drink_id.to_i == @operation.drink_id.to_i %>
@@ -66,12 +66,12 @@ end %>
     <label>Boisson</label>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s6">
     <%= f.label :numberDrink, 'Nombre de verres', 'data-error': 'Ce n\'est pas un nombre valide' %>
     <%= f.number_field :numberDrink, pattern: '^[0-9]*(\.[0-9]+)?', step: '0.01' %>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s6">
     <select id="post_food" name="post[food]">
       <% Food.all.each do |food| 
           if food.id.to_i == @operation.food_id.to_i %>
@@ -84,17 +84,17 @@ end %>
     <label>Nouriture</label>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s6">
     <%= f.label :numberDrink, 'Nombre de plats', 'data-error': 'Ce n\'est pas un nombre valide' %>
     <%= f.number_field :numberFood, pattern: '^[0-9]*(\.[0-9]+)?', step: '0.01' %>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :comment, 'Commentaire' %>
     <%= f.text_field :comment %>
   </div>
   
-  <div class="input-field col s12 l7">
+  <div class="input-field col s12">
     <%= f.label :admin_password, 'Mot de passe Administrateur' %>
     <%= password_field_tag :admin_password, nil %>
   </div>
@@ -107,7 +107,7 @@ end %>
   
   <br/>
   
-  <div class="col s12 l7">
+  <div class="col s12">
     <br/>
     <br/>  
     <br/>
