@@ -4,24 +4,24 @@ class UserNotifierMailer < ApplicationMailer
 
   # send a signup email to the user, pass in the user object that contains the user's email address
   def send_signup_email(user)
-    @user = user
-    mail( :to => @user.email,
-    :subject => 'Merci pour ton inscription' )
+    #@user = user
+    #mail( :to => @user.email,
+    #:subject => 'Merci pour ton inscription' )
   end
   
   # send a lost email to the user, pass in the user object that contains the user's email address and password
   def send_lost_email(user)
-    @user = user
-    mail( :to => @user.email,
-    :subject => 'Mot de passe perdu' )
+    #@user = user
+    #mail( :to => @user.email,
+    #:subject => 'Mot de passe perdu' )
   end
   
   # send a negative email to the user, pass in the user object that contains the user's email address and password
   def send_negative_email(user)
-    @user = user
-    @lastSpending = Operation.where(user_id: @user.id).order(date: :desc).limit(5)
-    mail( :to => @user.email,
-    :subject => 'Compte bar en négatif !' )
+    #@user = user
+    #@lastSpending = Operation.where(user_id: @user.id).order(date: :desc).limit(5)
+    #mail( :to => @user.email,
+    #:subject => 'Compte bar en négatif !' )
   end
   
   # send an award email
@@ -63,9 +63,9 @@ class UserNotifierMailer < ApplicationMailer
       j = 0
       while (j < 15)
         if userAwardId[j] == @user.id
-          puts "Send to : " + @user.email
-          mail( :to => @user.email,
-          :subject => 'Bar CVVR Awards !' )
+          #puts "Send to : " + @user.email
+          #mail( :to => @user.email,
+          #:subject => 'Bar CVVR Awards !' )
         end
         j = j + 1
       end
