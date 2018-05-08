@@ -34,13 +34,13 @@ class OperationsController < ApplicationController
   # POST /operations.json
   def create
     sum = 0
-    if params[:post][:drink]
+    if params && params[:post] && params[:post][:drink]
       drink_id = params[:post][:drink]
       drink_price = Drink.find(drink_id).price.to_f
       sum = sum - operation_params[:numberDrink].to_f * drink_price
     end
     
-    if params[:post][:food]
+    if params && params[:post] && params[:post][:food]
       food_id = params[:post][:food]
       food_price = Food.find(food_id).price.to_f
       sum = sum - operation_params[:numberFood].to_f * food_price
@@ -66,7 +66,7 @@ class OperationsController < ApplicationController
           amount = amount + operation.sum
         end
         if amount < 0
-          UserNotifierMailer.send_negative_email(User.find(operation_params[:user_id])).deliver
+          #UserNotifierMailer.send_negative_email(User.find(operation_params[:user_id])).deliver
         end
         format.html { redirect_to User, notice: "Opération prise en compte !"}
         format.json { render :show, status: :created, location: @operation }
