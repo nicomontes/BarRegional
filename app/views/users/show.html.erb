@@ -84,6 +84,7 @@
         <th>Nombre de Boisson</th>
         <th>Plat</th>
         <th>Nombre de Plat</th>
+        <th>Commentaire</th>
         <th>Somme</th>
       </tr>
     </thead>
@@ -110,6 +111,11 @@
           <td>
             <% if operation.food_id %>
               <%= operation.numberFood.to_i %> x <%= Food.find(operation.food_id).price %>€
+            <% end %>
+          </td>
+          <td>
+            <% if operation.comment %>
+              <%= operation.comment %>
             <% end %>
           </td>
           <td><%= operation.sum %>€</td>
