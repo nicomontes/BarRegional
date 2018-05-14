@@ -1,4 +1,3 @@
-<div class="container">
 
 <% provide(:title, "BarCVVR Tournée de "+User.find(@operation.user_id).firstName) %>
 
@@ -7,6 +6,8 @@
 <br>
 <br>
 
+<div class="container">
+<div id= "contener" class="row">
 <%= form_for(@operation, html: {id: "new_operation"}) do |f| %>
   <% if @operation.errors.any? %>
   <div class="row">
@@ -77,6 +78,7 @@
   </div>
 <% end %>
 
+</div>
 </div>
 
 <script>
