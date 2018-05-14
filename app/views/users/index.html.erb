@@ -31,7 +31,7 @@
 
   <tbody>
     <% i = 1 %>
-    <% @operationLastMouth.each do |key, value| %>
+    <% @operationYesterday.each do |key, value| %>
       <tr>
         <td><%= i %></td>
         <td><%= @users.find(key).lastName %></td>
@@ -53,7 +53,7 @@
         else
           if @operationTotal[key] <= -50
             td_class="red-text"
-            warning='<a class="btn btn-floating pulse red"><i class="material-icons">warning</i></a>'
+            #warning='<a class="btn btn-floating pulse red"><i class="material-icons">warning</i></a>'
           elsif @operationTotal[key] >= 50
             td_class="green-text"
           end

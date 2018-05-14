@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @kegs = Keg.where(endDate: nil)
     @users = User.all.order(lastName: :asc)
     @totalAmount = 0
-    @operationLastMouth = Hash.new {}
+    @operationYesterday = Hash.new {}
     @operationTotal = Hash.new {}
     @users.each do |user|
       @operationTotal[user.id] = 0
@@ -16,16 +16,16 @@ class UsersController < ApplicationController
       end
       @operationTotal[user.id] = @operationTotal[user.id] + user.amount
       @totalAmount = @totalAmount + @operationTotal[user.id]
-      totalOperationLastMouth = 0
-      Operation.where(user_id: user.id).where.not('numberDrink' => nil).where("created_at > ?", Date.today.last_month()).find_each do |operation|
+      totalOperationYesterday = 0
+      Operation.where(user_id: user.id).where.not('numberDrink' => nil).where("created_at > ?", Date.today.yesterday()).find_each do |operation|
         if operation.sum < 0
-          totalOperationLastMouth = totalOperationLastMouth + operation.sum
+          totalOperationYesterday = totalOperationYesterday + operation.sum
         end
       end
-      @operationLastMouth[user.id] = totalOperationLastMouth
+      @operationYesterday[user.id] = totalOperationYesterday
     end
     @userSorted = {}
-    @operationLastMouth = @operationLastMouth.sort_by {|_key, value| value}.to_h
+    @operationYesterday = @operationYesterday.sort_by {|_key, value| value}.to_h
   end
 
   # GET /users/1
