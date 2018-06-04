@@ -40,13 +40,13 @@
             <%= Drink.find(operation.drink_id).name %>
           <% end %>
         </td>
-        <td><%= number_with_precision(operation.numberDrink, precision: 0) %></td>
+        <td><%= number_with_precision(operation.numberDrink, precision: 1) %></td>
         <td>
           <% if operation.food_id %>
             <%= Food.find(operation.food_id).name %>
           <% end %>
         </td>
-        <td><%= number_with_precision(operation.numberFood, precision: 0) %></td>
+        <td><%= number_with_precision(operation.numberFood, precision: 1) %></td>
         <td><%= operation.comment %></td>
         <td><%= User.find(operation.user_id).firstName %> <%= User.find(operation.user_id).lastName %> <br/> <%= User.find(operation.user_id).alias %></td>
         <td>

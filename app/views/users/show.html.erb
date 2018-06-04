@@ -100,7 +100,7 @@
           </td>
           <td>
             <% if operation.drink_id %>
-              <%= operation.numberDrink.to_i %> x <%= Drink.find(operation.drink_id).price %>€
+              <%= operation.numberDrink.to_f %> x <%= Drink.find(operation.drink_id).price %>€
             <% end %>
           </td>
           <td>
@@ -110,7 +110,7 @@
           </td>
           <td>
             <% if operation.food_id %>
-              <%= operation.numberFood.to_i %> x <%= Food.find(operation.food_id).price %>€
+              <%= operation.numberFood.to_f %> x <%= Food.find(operation.food_id).price %>€
             <% end %>
           </td>
           <td>
